@@ -1,0 +1,15 @@
+[
+  {
+    "userID": 1,
+    "logID": 16860,
+    "date": "2026-05-17T19:00:16.8874608",
+    "exercise": {
+      "exerciseID": 201,
+      "exerciseName": "Dumbbell Bicep Curl",
+      "category": "ISOLATE",
+      "targetMuscle": "Tay trước (Biceps)"
+    },
+    "weight": 10.0,
+    "reps": 8
+  }
+]

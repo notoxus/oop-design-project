@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class WorkoutLog {
+	private final int userID;
 	private final int logID;
 	private final LocalDateTime date;
 	private final Exercise exercise;
@@ -14,6 +15,7 @@ public class WorkoutLog {
 	private final Double time;
 	
 	private WorkoutLog(WorkoutLogBuilder builder) {
+		this.userID = builder.userID;
 		this.logID = builder.logID;
 		this.date = builder.date;
 		this.exercise = builder.exercise;
@@ -23,6 +25,10 @@ public class WorkoutLog {
 		this.time = builder.time;
 	}
 	
+	public int getUserID() {
+		return userID;
+	}
+
 	public int getLogID() {
 		return logID;
 	}
@@ -48,6 +54,7 @@ public class WorkoutLog {
 		return time;
 	}
 	public static class WorkoutLogBuilder {
+		private int userID;
 		private int logID = -1;
 		private LocalDateTime date;
 		private Exercise exercise;
@@ -56,7 +63,12 @@ public class WorkoutLog {
 		private Integer reps = null;
 		private Double distance = null;
 		private Double time = null;
-
+		
+		public WorkoutLogBuilder setUserID(int userID) {
+			this.userID = userID;
+			return this;
+		}
+		
 		public WorkoutLogBuilder setLogID(int logID) {
 			this.logID = logID;
 			return this;

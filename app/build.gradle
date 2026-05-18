@@ -22,8 +22,10 @@ repositories {
 }
 
 dependencies {
-    // Add Jackson library to read json files
+    // Add Gson library to read json files
     implementation 'com.google.code.gson:gson:2.10.1'
+    // Add Free Chart library to perform statistics intuitively
+    implementation 'org.jfree:jfreechart:1.5.4'
     // Use JUnit Jupiter for testing.
     testImplementation libs.junit.jupiter
 

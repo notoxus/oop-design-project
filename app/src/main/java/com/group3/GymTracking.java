@@ -19,7 +19,7 @@ import com.group3.model.JsonLibraryDatabase;
 import com.group3.model.JsonLogDatabase;
 import com.group3.model.JsonUserDatabase;
 import com.group3.model.OpenFoodFactsAdapter;
-import com.group3.view.LoginForm;
+import com.group3.view.MainFrame;
 
 public class GymTracking {
     public static void main(String[] args) {
@@ -52,7 +52,7 @@ public class GymTracking {
         StatisticsPresenter statPresenter = new StatisticsPresenter(logDB);
         ExerciseSuggestionService suggestionService = new ExerciseSuggestionService();
         SwingUtilities.invokeLater(() -> {
-            LoginForm loginForm = new LoginForm(
+            MainFrame appFrame = new MainFrame(
                 loginManager, 
                 registerManager, 
                 libraryDB, 
@@ -64,7 +64,7 @@ public class GymTracking {
                 statPresenter, 
                 suggestionService
             );
-            loginForm.setVisible(true);
+            appFrame.setVisible(true);
         });
     }
 }

@@ -1,76 +1,121 @@
 package com.group3.view;
 
-import javax.swing.*;
 import java.awt.*;
-import com.group3.model.User;
-import com.group3.model.ExerciseLibrary;
+import javax.swing.*;
+
 import com.group3.controller.*;
+import com.group3.model.*;
 
-public class DashboardUI extends JFrame {
-    private static final long serialVersionUID = 1L;
-    private User currentUser;
-    private WorkoutLogController workoutCtrl;
-    private WorkoutHandling workoutHandling;
-    private ExerciseLibrary library;
-    private NutritionLogController nutritionCtrl;
-    private StatisticsPresenter statPresenter;
-    private ExerciseSuggestionService suggestionService;
+public class DashboardUI extends JPanel {
+	private static final long serialVersionUID = 1L;
+	private static final Color PRIMARY = new Color(33, 150, 243);
+	private static final Color NAV_ACTIVE = new Color(33, 150, 243);
+	private static final Color NAV_IDLE = new Color(150, 150, 150);
+	private static final Color NAV_BG = Color.WHITE;
 
-    public DashboardUI(User currentUser, WorkoutLogController workoutCtrl, WorkoutHandling workoutHandling, 
-                       ExerciseLibrary library, NutritionLogController nutritionCtrl, 
-                       StatisticsPresenter statPresenter, ExerciseSuggestionService suggestionService) {
-        this.currentUser = currentUser;
-        this.workoutCtrl = workoutCtrl;
-        this.workoutHandling = workoutHandling;
-        this.library = library;
-        this.nutritionCtrl = nutritionCtrl;
-        this.statPresenter = statPresenter;
-        this.suggestionService = suggestionService;
-        
-        initComponents();
-        setupEvents();
+	private MainFrame mainFrame;
+	private User user;
+	private WorkoutLogController workoutCtrl;
+	private WorkoutHandling workoutHandling;
+	private ExerciseLibrary library;
+	private NutritionLogController nutritionCtrl;
+	private StatisticsPresenter statPresenter;
+	private ExerciseSuggestionService suggestionService;
+
+	private JPanel cardPanel;
+	private CardLayout cardLayout;
+	private ExerciseUI exerciseUI;
+
+	private JButton btnLibrary, btnNutrition, btnLogs, btnStats, btnProfile;
+
+	public DashboardUI(MainFrame mainFrame, User user, WorkoutLogController workoutCtrl,
+			WorkoutHandling workoutHandling, ExerciseLibrary library, NutritionLogController nutritionCtrl,
+			StatisticsPresenter statPresenter, ExerciseSuggestionService suggestionService) {
+
+		this.mainFrame = mainFrame;
+		this.user = user;
+		this.workoutCtrl = workoutCtrl;
+		this.workoutHandling = workoutHandling;
+		this.library = library;
+		this.nutritionCtrl = nutritionCtrl;
+		this.statPresenter = statPresenter;
+		this.suggestionService = suggestionService;
+
+		setLayout(new BorderLayout());
+
+		cardLayout = new CardLayout();
+		cardPanel = new JPanel(cardLayout);
+
+		exerciseUI = new ExerciseUI(workoutCtrl, workoutHandling, library, user, this);
+		cardPanel.add(new ExerciseLibraryUI(library, user, suggestionService, null, this), "LIBRARY");
+		cardPanel.add(new NutritionUI(nutritionCtrl, user), "NUTRITION");
+		cardPanel.add(new ManageLogUI(workoutCtrl, nutritionCtrl), "LOGS");
+		cardPanel.add(new StatisticsUI(statPresenter, user), "STATS");
+		cardPanel.add(new ProfileUI(user, mainFrame), "PROFILE");
+		cardPanel.add(exerciseUI, "EXERCISE_INPUT");
+
+		add(cardPanel, BorderLayout.CENTER);
+		add(buildNavBar(), BorderLayout.SOUTH);
+	}
+
+	public void navigateToExerciseInput(Exercise ex) {
+		exerciseUI.setSelectedExercise(ex);
+		cardLayout.show(cardPanel, "EXERCISE_INPUT");
+		setNavActive(null);
+	}
+    
+    public void showLibrary() {
+        switchTo("LIBRARY", btnLibrary);
     }
 
-    private void initComponents() {
-        setTitle("Gym Tracking - Trang chủ");
-        setSize(500, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+	private JPanel buildNavBar() {
+		JPanel navBar = new JPanel(new GridLayout(1, 5));
+		navBar.setPreferredSize(new Dimension(400, 70));
+		navBar.setBackground(NAV_BG);
+		navBar.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(220, 220, 220)));
 
-        JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		btnLibrary = createNavButton("🏠", "Trang chủ");
+		btnNutrition = createNavButton("🔍", "Dinh dưỡng");
+		btnLogs = createNavButton("📄", "Nhật ký");
+		btnStats = createNavButton("📊", "Tiến độ");
+		btnProfile = createNavButton("👤", "Hồ sơ");
 
-        JLabel lblWelcome = new JLabel("Xin chào, " + currentUser.getName() + "!", SwingConstants.CENTER);
-        lblWelcome.setFont(new Font("Arial", Font.BOLD, 22));
-        lblWelcome.setForeground(new Color(0, 102, 204));
-        mainPanel.add(lblWelcome, BorderLayout.NORTH);
+		navBar.add(btnLibrary);
+		navBar.add(btnNutrition);
+		navBar.add(btnLogs);
+		navBar.add(btnStats);
+		navBar.add(btnProfile);
 
-        JPanel gridPanel = new JPanel(new GridLayout(3, 2, 15, 15));
-        
-        JButton btnLibrary = new JButton("Thư Viện Bài Tập");
-        JButton btnWorkout = new JButton("Tập Luyện");
-        JButton btnNutrition = new JButton("Tra Cứu Dinh Dưỡng");
-        JButton btnStatistics = new JButton("Thống Kê");
-        JButton btnManageLog = new JButton("Xem Lịch Sử");
-        
-        Font btnFont = new Font("Arial", Font.BOLD, 14);
-        JButton[] buttons = {btnLibrary, btnWorkout, btnNutrition, btnStatistics, btnManageLog};
-        for (JButton btn : buttons) {
-            btn.setFont(btnFont);
-            btn.setFocusPainted(false);
-            gridPanel.add(btn);
-        }
+		btnLibrary.addActionListener(e -> switchTo("LIBRARY", btnLibrary));
+		btnNutrition.addActionListener(e -> switchTo("NUTRITION", btnNutrition));
+		btnLogs.addActionListener(e -> switchTo("LOGS", btnLogs));
+		btnStats.addActionListener(e -> switchTo("STATS", btnStats));
+		btnProfile.addActionListener(e -> switchTo("PROFILE", btnProfile));
 
-        mainPanel.add(gridPanel, BorderLayout.CENTER);
-        add(mainPanel);
+		setNavActive(btnLibrary);
+		return navBar;
+	}
 
-        btnLibrary.addActionListener(e -> new ExerciseLibraryUI(library, currentUser, suggestionService, null).setVisible(true));
-        btnWorkout.addActionListener(e -> new ExerciseUI(workoutCtrl, workoutHandling, library).setVisible(true));
-        btnNutrition.addActionListener(e -> new NutritionUI(nutritionCtrl).setVisible(true));
-        btnStatistics.addActionListener(e -> new StatisticsUI(statPresenter).setVisible(true));
-        btnManageLog.addActionListener(e -> new ManageLogUI().setVisible(true));
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
+	private void switchTo(String card, JButton activeBtn) {
+		cardLayout.show(cardPanel, card);
+		setNavActive(activeBtn);
+	}
 
-    private void setupEvents() {}
+	private void setNavActive(JButton activeBtn) {
+		for (JButton btn : new JButton[] { btnLibrary, btnNutrition, btnLogs, btnStats, btnProfile }) {
+			if (btn == null) continue;
+			btn.setForeground(btn == activeBtn ? NAV_ACTIVE : NAV_IDLE);
+		}
+	}
+
+	private JButton createNavButton(String icon, String label) {
+		JButton btn = new JButton("<html><center><div style='font-size:20pt'>" + icon + "</div><div style='font-size:7pt'>" + label + "</div></center></html>");
+		btn.setFocusPainted(false);
+		btn.setBackground(NAV_BG);
+		btn.setForeground(NAV_IDLE);
+		btn.setMargin(new Insets(0, 0, 0, 0));
+		btn.setBorder(BorderFactory.createEmptyBorder());
+		btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		return btn;
+	}
 }

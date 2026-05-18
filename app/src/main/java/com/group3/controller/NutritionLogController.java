@@ -61,4 +61,7 @@ public class NutritionLogController {
             return false;
         }
     }
+    public List<NutritionLog> getAllLogs() {
+        return nutritionDB.loadData().getNutritionLogs();
+    }
 }

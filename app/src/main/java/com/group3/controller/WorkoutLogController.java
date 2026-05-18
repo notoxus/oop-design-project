@@ -1,5 +1,7 @@
 package com.group3.controller;
 
+import java.util.List;
+
 import com.group3.model.DataConnection;
 import com.group3.model.LogCollection;
 import com.group3.model.WorkoutLog;
@@ -49,5 +51,8 @@ public class WorkoutLogController {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	public List<WorkoutLog> getAllLogs() {
+	    return workoutDB.loadData().getWorkoutLogs();
 	}
 }

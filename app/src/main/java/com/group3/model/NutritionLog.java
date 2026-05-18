@@ -3,6 +3,7 @@ package com.group3.model;
 import java.time.LocalDateTime;
 
 public class NutritionLog {
+	private final int userID;
 	private final int logID;
 	private final int productID;
 	private final String productName;
@@ -14,6 +15,7 @@ public class NutritionLog {
 	private final Double carbohydrates;
 
 	public NutritionLog(Builder builder) {
+		this.userID = builder.userID;
 		this.logID = builder.logID;
 		this.productID = builder.productID;
 		this.productName = builder.productName;
@@ -25,6 +27,10 @@ public class NutritionLog {
 		this.carbohydrates = builder.carbohydrates;
 	}
 	
+	public int getUserID() {
+		return userID;
+	}
+
 	public int getLogID() {
 		return logID;
 	}
@@ -62,6 +68,7 @@ public class NutritionLog {
 	}
 
 	public static class Builder {
+		private int userID;
 		private int logID = -1;
 		private int productID = -1;
 		private String productName;
@@ -71,6 +78,11 @@ public class NutritionLog {
 		private Double protein = null;
 		private Double fat = null;
 		private Double carbohydrates = null;
+		
+		public Builder setUserID(int userID) {
+			this.userID = userID;
+			return this;
+		}
 		
 		public Builder setlogID(int logID) {
 			this.logID = logID;

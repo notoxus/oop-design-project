@@ -4,7 +4,7 @@
     "exerciseName": "Chạy bộ",
     "category": "CARDIO",
     "trackingType": "DISTANCE_TIME",
-    "targetMuscle": "Tim mạch & Chân"
+    "targetMuscle": "Tim mạch \u0026 Chân"
   },
   {
     "exerciseID": 201,
@@ -32,7 +32,7 @@
     "exerciseName": "Barbell Squat",
     "category": "COMPOUND",
     "trackingType": "WEIGHT_REP",
-    "targetMuscle": "Đùi & Mông (Legs/Glutes)"
+    "targetMuscle": "Đùi \u0026 Mông (Legs/Glutes)"
   },
   {
     "exerciseID": 303,
@@ -40,5 +40,12 @@
     "category": "COMPOUND",
     "trackingType": "WEIGHT_REP",
     "targetMuscle": "Ngực (Chest)"
+  },
+  {
+    "exerciseID": 87376,
+    "exerciseName": "Yoga",
+    "category": "FLEXIBILITY",
+    "trackingType": "TIME_ONLY",
+    "targetMuscle": "Toàn thân"
   }
 ]
