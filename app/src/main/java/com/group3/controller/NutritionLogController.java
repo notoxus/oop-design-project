@@ -1,5 +1,6 @@
 package com.group3.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.group3.model.DataConnection;
@@ -9,24 +10,24 @@ import com.group3.model.NutritionLog;
 
 public class NutritionLogController {
 	private DataConnection<LogCollection> nutritionDB;
-    private INutrition nutritionAPI;
+    private INutrition nutrition;
 
     public NutritionLogController(DataConnection<LogCollection> nutritionDB, INutrition nutritionAPI) {
         this.nutritionDB = nutritionDB;
-        this.nutritionAPI = nutritionAPI;
+        this.nutrition = nutritionAPI;
     }
     // Look up nutrition product depend on product name
     public List<NutritionLog> lookupNutrition(String productName) {
-        if (nutritionAPI == null) {
+        if (nutrition == null) {
             System.err.println("API chưa được khởi tạo!");
-            return new java.util.ArrayList<>();
+            return new ArrayList<>();
         }
-        return nutritionAPI.getNutritionInfo(productName); 
+        return nutrition.getNutritionInfo(productName); 
     }
     // Add that one to our nutrition log
     public boolean addNutritionLog(NutritionLog newNutritionLog) {
         if (newNutritionLog == null) {
-            System.err.println("Lỗi: Không thể lưu một log dinh dưỡng rỗng!");
+            System.err.println("Lỗi: Không thể lưu một nhật ký dinh dưỡng rỗng!");
             return false;
         }
 
@@ -38,7 +39,7 @@ public class NutritionLogController {
             if (isSaved) {
                 System.out.println("Đã thêm sản phẩm: " + newNutritionLog.getProductName() + " thành công!");
             } else {
-                System.err.println("Lỗi khi ghi file JSON!");
+                System.err.println("Lỗi: không thể ghi dữ liệu vào DB!");
             }
             return isSaved;
 
@@ -47,7 +48,7 @@ public class NutritionLogController {
             return false;
         }
     }
-    public boolean deleteNutritionLog(int logID) {
+    public boolean removeNutritionLog(int logID) {
         try {
             LogCollection currentData = nutritionDB.loadData();
             boolean isRemoved = currentData.getNutritionLogs().removeIf(log -> log.getLogID() == logID);
@@ -61,6 +62,7 @@ public class NutritionLogController {
             return false;
         }
     }
+    // Extra method for showing Nutrition Log
     public List<NutritionLog> getAllLogs() {
         return nutritionDB.loadData().getNutritionLogs();
     }

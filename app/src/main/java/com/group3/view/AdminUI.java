@@ -88,7 +88,7 @@ public class AdminUI extends JPanel {
 		listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
 		listPanel.setBackground(Color.WHITE);
 
-		List<User> users = controller.getUserList();
+		List<User> users = controller.viewUserDetails();
 		if (users != null) {
 			for (User u : users) {
 				JPanel card = new JPanel(new BorderLayout());

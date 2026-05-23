@@ -74,5 +74,16 @@
     "height": 1.76,
     "weight": 79.0,
     "goal": "MUSCLE_GAIN"
+  },
+  {
+    "userID": 8,
+    "name": "Bui Thinh",
+    "username": "thinhbui123",
+    "password": "thinh123@",
+    "age": 20,
+    "gender": "Nam",
+    "height": 176.0,
+    "weight": 90.0,
+    "goal": "LOSE_FAT"
   }
 ]

@@ -18,7 +18,7 @@ public class OpenFoodFactsAdapter implements INutrition {
     @Override
     public List<NutritionLog> getNutritionInfo(String productName) {
         List<NutritionLog> results = new ArrayList<>();
-        String jsonResponse = api.fetchProductJsonByName(productName);
+        String jsonResponse = api.fetchNutritionData(productName);
 
         if (jsonResponse == null || jsonResponse.isBlank() || jsonResponse.contains("\"count\":0")) {
             System.out.println("Không tìm thấy sản phẩm này trên hệ thống.");

@@ -115,7 +115,7 @@ public class ManageLogUI extends JPanel {
         JPanel panel = new JPanel(new BorderLayout(0, 0));
         panel.setBackground(WHITE);
 
-        String[] cols = {"Thời gian", "Bài tập", "Tạ (kg)", "Reps"};
+        String[] cols = {"Thời gian", "Bài tập", "Kết quả"};
         workoutModel = new DefaultTableModel(cols, 0) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
         };
@@ -204,17 +204,26 @@ public class ManageLogUI extends JPanel {
         });
         return btn;
     }
-
     private void loadWorkoutData() {
         workoutModel.setRowCount(0);
         List<WorkoutLog> logs = workoutCtrl.getAllLogs();
         if (logs == null) return;
         for (WorkoutLog log : logs) {
+            String resultStr = "—";
+            if (log.getDistance() != null && log.getTime() != null && log.getDistance() > 0) {
+                resultStr = String.format("%.1f km — Pace: %.2f", log.getDistance(), log.paceCal());
+            } 
+            else if (log.getWeight() != null && log.getReps() != null) {
+                resultStr = log.getWeight() + "kg x " + log.getReps() + "r";
+            } else if (log.getReps() != null) {
+                resultStr = log.getReps() + " reps";
+            } else if (log.getTime() != null) {
+                resultStr = log.getTime() + " phút";
+            }
             workoutModel.addRow(new Object[]{
                 log.getDate().format(formatter),
                 log.getExercise().getExerciseName(),
-                log.getWeight()   != null ? log.getWeight()   : "—",
-                log.getReps()     != null ? log.getReps()     : "—",
+                resultStr
             });
         }
     }
@@ -256,7 +265,7 @@ public class ManageLogUI extends JPanel {
         int logID = logs.get(row).getLogID();
         if (JOptionPane.showConfirmDialog(this, "Xóa log dinh dưỡng này?", "Xác nhận",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            if (nutritionCtrl.deleteNutritionLog(logID)) {
+            if (nutritionCtrl.removeNutritionLog(logID)) {
                 JOptionPane.showMessageDialog(this, "Đã xóa thành công!");
                 loadNutritionData();
             }

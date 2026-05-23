@@ -13,7 +13,7 @@ public class RegisterManager {
     public boolean register(User newUser) {
         // Check username existed yet
         if (userDatabase.isUsernameExist(newUser.getUsername())) {
-            System.out.println("Lỗi: Tên đăng nhập '" + newUser.getUsername() + "' đã tồn tại!");
+            System.out.println("Lỗi: Tên đăng nhập '" + newUser.getUsername() + " đã tồn tại!");
             return false;
         }
 
@@ -22,7 +22,7 @@ public class RegisterManager {
         if (success) {
             System.out.println("Đăng ký thành công cho tài khoản: " + newUser.getUsername());
         } else {
-            System.out.println("Lỗi hệ thống khi lưu tài khoản!");
+            System.out.println("Lỗi: Không thể lưu tài khoản!");
         }
         
         return success;

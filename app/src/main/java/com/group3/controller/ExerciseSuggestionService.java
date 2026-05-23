@@ -15,7 +15,7 @@ public class ExerciseSuggestionService {
 	private ExerciseSuggestionStrategy suggestionStrategy;
 
 	// For new user
-	// Goal recommended
+	// Goal recommended rely on BMI index
 	public WorkoutGoal recommend(User newUser) {
 		double bmi = newUser.bmiCal();
 		if (bmi < 18.5) {
@@ -30,7 +30,6 @@ public class ExerciseSuggestionService {
 	// Assignment operator with properly Strategy after user choice goal
 	public void applyUserChoice(User user, WorkoutGoal chosenGoal) {
 		user.setGoal(chosenGoal);
-
 		switch (chosenGoal) {
 		case MUSCLE_GAIN:
 			this.suggestionStrategy = new ThinStrategy();
@@ -46,7 +45,7 @@ public class ExerciseSuggestionService {
 	}
 
 	// Logic for user choice
-	//if they didnt choose goal we set default as recommended goal
+	// If they didnt choose goal we set default as recommended goal
 	public List<Exercise> suggest(User user, ExerciseLibrary lib) {
 		if (this.suggestionStrategy == null) {
 			applyUserChoice(user, recommend(user));
