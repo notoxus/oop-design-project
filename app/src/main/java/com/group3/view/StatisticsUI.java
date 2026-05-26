@@ -17,32 +17,36 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import com.group3.controller.NutritionLogController;
 import com.group3.controller.StatisticsPresenter;
 import com.group3.controller.WorkoutHandling;
+import com.group3.controller.WorkoutLogController;
 import com.group3.model.*;
 
-public class StatisticsUI extends JPanel {
+public class StatisticsUI extends JPanel implements Observer {
 	private static final long serialVersionUID = 1L;
+	// Dependency
 	private StatisticsPresenter presenter;
 	private User user;
 	private WorkoutHandling workoutHandling;
-
+	// Main components
 	private DefaultCategoryDataset workoutDataset;
 	private DefaultCategoryDataset nutritionDataset;
 	private DefaultTableModel recentWorkoutModel;
 	private DefaultTableModel recentNutritionModel;
-
 	private JLabel lblTotalVolume;
 	private JLabel lblTotalCalo;
-
 	private JComboBox<WorkoutGoal> cbGoal;
 	private JButton btnUpdateGoal;
 	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM");
 
-	public StatisticsUI(StatisticsPresenter presenter, User user, WorkoutHandling workoutHandling) {
+	public StatisticsUI(StatisticsPresenter presenter, User user, WorkoutHandling workoutHandling,
+			WorkoutLogController wCtrl, NutritionLogController nCtrl) {
 		this.presenter = presenter;
 		this.user = user;
 		this.workoutHandling = workoutHandling;
+		wCtrl.addObserver(this);
+		nCtrl.addObserver(this);
 		initComponents();
 		refreshData();
 	}
@@ -175,6 +179,11 @@ public class StatisticsUI extends JPanel {
 		});
 	}
 
+	@Override
+	public void update() {
+		refreshData();
+	}
+
 	public void refreshData() {
 		workoutDataset.clear();
 		nutritionDataset.clear();
@@ -189,7 +198,7 @@ public class StatisticsUI extends JPanel {
 		for (Map.Entry<LocalDate, Map<ExerciseCategory, Double>> entry : workoutData.entrySet()) {
 			String dateStr = entry.getKey().format(dateFormatter);
 			for (Map.Entry<ExerciseCategory, Double> catEntry : entry.getValue().entrySet()) {
-				workoutDataset.addValue(catEntry.getValue(), catEntry.getKey().name(), dateStr);
+				workoutDataset.addValue(catEntry.getValue(), catEntry.getKey().getCatName(), dateStr);
 				sumVolume += catEntry.getValue();
 			}
 		}
@@ -260,17 +269,17 @@ public class StatisticsUI extends JPanel {
 	}
 
 	private void styleChart(JFreeChart chart) {
-        chart.setBackgroundPaint(Color.WHITE);
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.setBackgroundPaint(Color.WHITE);
-        plot.setRangeGridlinePaint(new Color(230, 230, 230));
-        plot.setOutlineVisible(false);
-        LineAndShapeRenderer renderer = new LineAndShapeRenderer(true, true); // (lines, shapes)
-        renderer.setDefaultStroke(new BasicStroke(2.0f));
-        renderer.setDefaultShapesVisible(true);
-        renderer.setDefaultShape(new java.awt.geom.Ellipse2D.Double(-4, -4, 8, 8)); // Hình tròn 8x8
-        plot.setRenderer(renderer);
-    }
+		chart.setBackgroundPaint(Color.WHITE);
+		CategoryPlot plot = chart.getCategoryPlot();
+		plot.setBackgroundPaint(Color.WHITE);
+		plot.setRangeGridlinePaint(new Color(230, 230, 230));
+		plot.setOutlineVisible(false);
+		LineAndShapeRenderer renderer = new LineAndShapeRenderer(true, true); // (lines, shapes)
+		renderer.setDefaultStroke(new BasicStroke(2.0f));
+		renderer.setDefaultShapesVisible(true);
+		renderer.setDefaultShape(new java.awt.geom.Ellipse2D.Double(-4, -4, 8, 8)); // Hình tròn 8x8
+		plot.setRenderer(renderer);
+	}
 
 	private JTable createCompactTable(DefaultTableModel model) {
 		JTable table = new JTable(model);

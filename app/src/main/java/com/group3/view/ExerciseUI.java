@@ -14,7 +14,7 @@ import com.group3.model.ExerciseLibrary;
 import com.group3.model.TrackingType;
 import com.group3.model.User;
 import com.group3.model.WorkoutLog;
-import com.group3.strategy.RecommendationResult;
+import com.group3.model.RecommendationResult;
 
 public class ExerciseUI extends JPanel {
     private static final long serialVersionUID = 1L;

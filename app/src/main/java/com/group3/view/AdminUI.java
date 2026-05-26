@@ -45,23 +45,31 @@ public class AdminUI extends JPanel {
 		add(cardPanel, BorderLayout.CENTER);
 
 		// Admin navigation bar
-		JPanel navBar = new JPanel(new GridLayout(1, 2));
+		JPanel navBar = new JPanel(new GridLayout(1, 3));
 		navBar.setPreferredSize(new Dimension(400, 60));
 		navBar.setBackground(Color.WHITE);
 		navBar.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.LIGHT_GRAY));
 
 		JButton btnLibrary = createNavButton("📚", "Thư viện bài tập");
-		JButton btnUsers = createNavButton("👥", "Chi tiết người dùng");
+		JButton btnUsers = createNavButton("👥", "Người dùng");
+		JButton btnLogout = createNavButton("🚪", "Đăng xuất"); // Nút mới
 
 		navBar.add(btnLibrary);
 		navBar.add(btnUsers);
+		navBar.add(btnLogout);
 
 		btnLibrary.addActionListener(e -> cardLayout.show(cardPanel, "LIBRARY"));
 		btnUsers.addActionListener(e -> {
 			cardPanel.add(createUserListPanel(), "USERS");
 			cardLayout.show(cardPanel, "USERS");
 		});
-
+		btnLogout.addActionListener(e -> {
+			int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn đăng xuất?", 
+					"Xác nhận", JOptionPane.YES_NO_OPTION);
+			if (confirm == JOptionPane.YES_OPTION) {
+				mainFrame.showLoginScreen();
+			}
+		});
 		add(navBar, BorderLayout.SOUTH);
 	}
 
@@ -127,20 +135,41 @@ public class AdminUI extends JPanel {
 	}
 
 	private void showUserDetails(User user) {
-		userDetailsContainer.removeAll(); // Remove old content
+		userDetailsContainer.removeAll(); 
 
 		JPanel headerPanel = new JPanel(new BorderLayout());
-		headerPanel.setBackground(Color.WHITE);
-		JButton btnBack = new JButton("⬅ Quay lại");
-		btnBack.addActionListener(e -> cardLayout.show(cardPanel, "USERS"));
-		headerPanel.add(btnBack, BorderLayout.WEST);
-		headerPanel.add(new JLabel("Chi tiết: " + user.getName(), SwingConstants.CENTER), BorderLayout.CENTER);
+		headerPanel.setBackground(new Color(33, 150, 243));
+		headerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		JTabbedPane userTabs = new JTabbedPane();
-		userTabs.addTab("Hồ sơ", new JLabel("Giao diện Profile của " + user.getName()));
-		userTabs.addTab("Thống kê", new JLabel("Biểu đồ của " + user.getName()));
+		JButton btnBack = new JButton("← Quay lại");
+		btnBack.setFont(new Font("Arial", Font.BOLD, 14));
+		btnBack.setForeground(Color.WHITE);
+		btnBack.setContentAreaFilled(false);
+		btnBack.setBorderPainted(false);
+		btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnBack.addActionListener(e -> cardLayout.show(cardPanel, "USERS"));
+		
+		JLabel lblTitle = new JLabel("Hồ sơ: " + user.getName(), SwingConstants.CENTER);
+		lblTitle.setFont(new Font("Arial", Font.BOLD, 16));
+		lblTitle.setForeground(Color.WHITE);
+
+		headerPanel.add(btnBack, BorderLayout.WEST);
+		headerPanel.add(lblTitle, BorderLayout.CENTER);
+		headerPanel.add(Box.createRigidArea(new Dimension(100, 20)), BorderLayout.EAST); // Cân bằng UI
+
+		JPanel infoPanel = new JPanel(new GridLayout(6, 1, 0, 10));
+		infoPanel.setBackground(Color.WHITE);
+		infoPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		
+		infoPanel.add(new JLabel("<html><b>Tên đăng nhập:</b> " + user.getUsername() + "</html>"));
+		infoPanel.add(new JLabel("<html><b>Giới tính:</b> " + (user.getGender() != null ? user.getGender() : "Chưa cập nhật") + "</html>"));
+		infoPanel.add(new JLabel("<html><b>Tuổi:</b> " + user.getAge() + "</html>"));
+		infoPanel.add(new JLabel("<html><b>Chiều cao:</b> " + user.getHeight() + " cm</html>"));
+		infoPanel.add(new JLabel("<html><b>Cân nặng:</b> " + user.getWeight() + " kg</html>"));
+		infoPanel.add(new JLabel("<html><b>Mục tiêu:</b> " + (user.getGoal() != null ? user.getGoal().toString() : "Chưa có") + "</html>"));
+
 		userDetailsContainer.add(headerPanel, BorderLayout.NORTH);
-		userDetailsContainer.add(userTabs, BorderLayout.CENTER);
+		userDetailsContainer.add(infoPanel, BorderLayout.CENTER);
 
 		userDetailsContainer.revalidate();
 		userDetailsContainer.repaint();

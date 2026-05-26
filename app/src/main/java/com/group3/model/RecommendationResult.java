@@ -1,4 +1,4 @@
-package com.group3.strategy;
+package com.group3.model;
 
 public class RecommendationResult {
 	private Double suggestedWeight;

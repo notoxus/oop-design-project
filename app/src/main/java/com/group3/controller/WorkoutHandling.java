@@ -2,11 +2,11 @@ package com.group3.controller;
 
 import com.group3.model.User;
 import com.group3.model.WorkoutLog;
-import com.group3.strategy.LoseFatStrategy;
-import com.group3.strategy.MuscleGainStrategy;
-import com.group3.strategy.NextSetRecommendationStrategy;
-import com.group3.strategy.NoWeightStrategy;
-import com.group3.strategy.RecommendationResult;
+import com.group3.model.LoseFatStrategy;
+import com.group3.model.MuscleGainStrategy;
+import com.group3.model.NextSetRecommendationStrategy;
+import com.group3.model.NoWeightStrategy;
+import com.group3.model.RecommendationResult;
 
 public class WorkoutHandling {
 

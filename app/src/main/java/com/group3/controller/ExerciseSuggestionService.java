@@ -1,15 +1,14 @@
 package com.group3.controller;
 
 import java.util.List;
-
 import com.group3.model.Exercise;
 import com.group3.model.ExerciseLibrary;
 import com.group3.model.User;
 import com.group3.model.WorkoutGoal;
-import com.group3.strategy.ExerciseSuggestionStrategy;
-import com.group3.strategy.FatStrategy;
-import com.group3.strategy.FitStrategy;
-import com.group3.strategy.ThinStrategy;
+import com.group3.model.ExerciseSuggestionStrategy;
+import com.group3.model.FatStrategy;
+import com.group3.model.FitStrategy;
+import com.group3.model.ThinStrategy;
 
 public class ExerciseSuggestionService {
 	private ExerciseSuggestionStrategy suggestionStrategy;

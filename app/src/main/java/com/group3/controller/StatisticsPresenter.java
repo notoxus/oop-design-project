@@ -1,7 +1,7 @@
 package com.group3.controller;
 
 import java.time.LocalDate;
-import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -79,15 +79,9 @@ public class StatisticsPresenter {
 	            volume = 1.0;
 	        }
 
-	        chartData.putIfAbsent(date, new EnumMap<>(ExerciseCategory.class));
+	        chartData.putIfAbsent(date, new HashMap<>());
 	        chartData.get(date).merge(category, volume, Double::sum);
 	    }
-	    for (Map<ExerciseCategory, Double> dayData : chartData.values()) {
-	        for (ExerciseCategory cat : ExerciseCategory.values()) {
-	            dayData.putIfAbsent(cat, 0.0);
-	        }
-	    }
-
 	    return chartData;
 	}
 

@@ -7,14 +7,17 @@ import com.group3.model.DataConnection;
 import com.group3.model.INutrition;
 import com.group3.model.LogCollection;
 import com.group3.model.NutritionLog;
+import com.group3.model.Observer;
+import com.group3.model.Subject;
 
-public class NutritionLogController {
+public class NutritionLogController implements Subject {
 	private DataConnection<LogCollection> nutritionDB;
     private INutrition nutrition;
-
+    private List<Observer> observers;
     public NutritionLogController(DataConnection<LogCollection> nutritionDB, INutrition nutritionAPI) {
         this.nutritionDB = nutritionDB;
         this.nutrition = nutritionAPI;
+        this.observers = new ArrayList<>();
     }
     // Look up nutrition product depend on product name
     public List<NutritionLog> lookupNutrition(String productName) {
@@ -66,4 +69,20 @@ public class NutritionLogController {
     public List<NutritionLog> getAllLogs() {
         return nutritionDB.loadData().getNutritionLogs();
     }
+    @Override
+	public void addObserver(Observer o) {
+		if (!observers.contains(o)) observers.add(o);
+	}
+
+	@Override
+	public void removeObserver(Observer o) {
+		observers.remove(o);
+	}
+
+	@Override
+	public void notifyObservers() {
+		for (Observer o : observers) {
+			o.update();
+		}
+	}
 }

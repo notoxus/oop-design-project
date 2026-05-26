@@ -12,11 +12,11 @@ import java.util.List;
 import com.group3.controller.NutritionLogController;
 import com.group3.controller.WorkoutLogController;
 import com.group3.model.NutritionLog;
+import com.group3.model.Observer;
 import com.group3.model.WorkoutLog;
 
-public class ManageLogUI extends JPanel {
+public class ManageLogUI extends JPanel implements Observer {
     private static final long serialVersionUID = 1L;
-
     private static final Color PRIMARY  = new Color(33, 150, 243);
     private static final Color DANGER   = new Color(229, 57, 53);
     private static final Color DANGER_D = new Color(183, 28, 28);
@@ -31,8 +31,11 @@ public class ManageLogUI extends JPanel {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
 
     public ManageLogUI(WorkoutLogController workoutCtrl, NutritionLogController nutritionCtrl) {
-        this.workoutCtrl   = workoutCtrl;
+    	this.workoutCtrl = workoutCtrl;
         this.nutritionCtrl = nutritionCtrl;
+        
+    	this.workoutCtrl.addObserver(this);
+        this.nutritionCtrl.addObserver(this);
         initComponents();
         loadWorkoutData();
         loadNutritionData();
@@ -203,6 +206,11 @@ public class ManageLogUI extends JPanel {
             public void mouseExited(MouseEvent e)  { btn.setBackground(DANGER); }
         });
         return btn;
+    }
+    @Override
+    public void update() {
+        loadWorkoutData();
+        loadNutritionData();
     }
     private void loadWorkoutData() {
         workoutModel.setRowCount(0);

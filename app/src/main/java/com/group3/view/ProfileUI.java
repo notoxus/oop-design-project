@@ -10,7 +10,6 @@ import com.group3.model.User;
 
 public class ProfileUI extends JPanel {
     private static final long serialVersionUID = 1L;
-
     private static final Color PRIMARY    = new Color(33, 150, 243);
     private static final Color WHITE      = Color.WHITE;
     private static final Color BG         = new Color(245, 245, 245);
@@ -20,12 +19,10 @@ public class ProfileUI extends JPanel {
     public ProfileUI(User currentUser, MainFrame mainFrame) {
         setLayout(new BorderLayout());
         setBackground(BG);
-
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
         headerPanel.setBackground(PRIMARY);
         headerPanel.setBorder(new EmptyBorder(28, 20, 24, 20));
-
         String initials = getInitials(currentUser.getName());
         JLabel lblAvatar = new JLabel(initials, SwingConstants.CENTER) {
             @Override protected void paintComponent(Graphics g) {
