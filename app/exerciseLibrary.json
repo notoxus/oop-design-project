@@ -1,51 +1,116 @@
 [
   {
-    "exerciseID": 101,
-    "exerciseName": "Chạy bộ",
-    "category": "CARDIO",
+    "exerciseID": 77585,
+    "exerciseName": "Chạy nước rút",
+    "category": {
+      "catID": 6,
+      "catName": "HIIT (Cường độ cao)",
+      "subCat": []
+    },
     "trackingType": "DISTANCE_TIME",
-    "targetMuscle": "Tim mạch \u0026 Chân"
+    "targetMuscle": "Tim mạch"
   },
   {
-    "exerciseID": 201,
+    "exerciseID": 98558,
+    "exerciseName": "Chạy bền",
+    "category": {
+      "catID": 7,
+      "catName": "Cường độ thấp",
+      "subCat": []
+    },
+    "trackingType": "DISTANCE_TIME",
+    "targetMuscle": "Tim mạch"
+  },
+  {
+    "exerciseID": 40862,
     "exerciseName": "Dumbbell Bicep Curl",
-    "category": "ISOLATE",
+    "category": {
+      "catID": 5,
+      "catName": "ISOLATE",
+      "subCat": []
+    },
     "trackingType": "WEIGHT_REP",
-    "targetMuscle": "Tay trước (Biceps)"
+    "targetMuscle": "Tay trước"
   },
   {
-    "exerciseID": 202,
+    "exerciseID": 73935,
     "exerciseName": "Tricep Extension",
-    "category": "ISOLATE",
+    "category": {
+      "catID": 5,
+      "catName": "ISOLATE",
+      "subCat": []
+    },
     "trackingType": "WEIGHT_REP",
-    "targetMuscle": "Tay sau (Triceps)"
+    "targetMuscle": "Tay sau"
   },
   {
-    "exerciseID": 301,
-    "exerciseName": "Pull Up",
-    "category": "COMPOUND",
-    "trackingType": "REP_ONLY",
-    "targetMuscle": "Lưng xô (Back/Lats)"
-  },
-  {
-    "exerciseID": 302,
-    "exerciseName": "Barbell Squat",
-    "category": "COMPOUND",
-    "trackingType": "WEIGHT_REP",
-    "targetMuscle": "Đùi \u0026 Mông (Legs/Glutes)"
-  },
-  {
-    "exerciseID": 303,
+    "exerciseID": 14279,
     "exerciseName": "Barbell Bench Press",
-    "category": "COMPOUND",
+    "category": {
+      "catID": 4,
+      "catName": "COMPOUND",
+      "subCat": []
+    },
     "trackingType": "WEIGHT_REP",
-    "targetMuscle": "Ngực (Chest)"
+    "targetMuscle": "Ngực, Vai trước, Tay sau"
   },
   {
-    "exerciseID": 87376,
+    "exerciseID": 35821,
     "exerciseName": "Yoga",
-    "category": "FLEXIBILITY",
+    "category": {
+      "catID": 8,
+      "catName": "Yoga",
+      "subCat": []
+    },
     "trackingType": "TIME_ONLY",
+    "targetMuscle": "Toàn thân"
+  },
+  {
+    "exerciseID": 16539,
+    "exerciseName": "Pull Up",
+    "category": {
+      "catID": 4,
+      "catName": "COMPOUND",
+      "subCat": []
+    },
+    "trackingType": "WEIGHT_REP",
+    "targetMuscle": "Lưng xô, lưng trên, tay trước"
+  },
+  {
+    "exerciseID": 51573,
+    "exerciseName": "Barbell Squat",
+    "category": {
+      "catID": 4,
+      "catName": "COMPOUND",
+      "subCat": []
+    },
+    "trackingType": "WEIGHT_REP",
+    "targetMuscle": "Đùi trước, mông, đùi sau, bắp chân"
+  },
+  {
+    "exerciseID": 70401,
+    "exerciseName": "Push Up",
+    "category": {
+      "catID": 4,
+      "catName": "COMPOUND",
+      "subCat": []
+    },
+    "trackingType": "WEIGHT_REP",
+    "targetMuscle": "Ngực, tam đầu, vai"
+  },
+  {
+    "exerciseID": 40932,
+    "exerciseName": "Bơi",
+    "category": {
+      "catID": 6,
+      "catName": "HIIT (Cường độ cao)",
+      "allowedTrackingTypes": [
+        "DISTANCE_TIME",
+        "TIME_ONLY"
+      ],
+      "subCat": []
+    },
+    "trackingType": "DISTANCE_TIME",
     "targetMuscle": "Toàn thân"
   }
 ]

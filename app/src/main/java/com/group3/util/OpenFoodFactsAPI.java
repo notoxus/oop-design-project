@@ -1,4 +1,4 @@
-package com.group3.api;
+package com.group3.util;
 
 import java.net.URI;
 import java.net.http.HttpClient;

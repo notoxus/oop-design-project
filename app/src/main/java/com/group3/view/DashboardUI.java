@@ -21,7 +21,6 @@ public class DashboardUI extends JPanel {
 	private NutritionLogController nutritionCtrl;
 	private StatisticsPresenter statPresenter;
 	private ExerciseSuggestionService suggestionService;
-
 	private JPanel cardPanel;
 	private CardLayout cardLayout;
 	private ExerciseUI exerciseUI;
@@ -50,7 +49,7 @@ public class DashboardUI extends JPanel {
 		cardPanel.add(new ExerciseLibraryUI(library, user, suggestionService, null, this), "LIBRARY");
 		cardPanel.add(new NutritionUI(nutritionCtrl, user), "NUTRITION");
 		cardPanel.add(new ManageLogUI(workoutCtrl, nutritionCtrl), "LOGS");
-		cardPanel.add(new StatisticsUI(statPresenter, user, workoutHandling), "STATS");
+		cardPanel.add(new StatisticsUI(statPresenter, user, workoutHandling, workoutCtrl, nutritionCtrl), "STATS");
 		cardPanel.add(new ProfileUI(user, mainFrame), "PROFILE");
 		cardPanel.add(exerciseUI, "EXERCISE_INPUT");
 

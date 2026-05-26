@@ -1,50 +1,20 @@
 package com.group3.model;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.*;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JsonUserDatabase implements DataConnection<List<User>> {
-	private final String filePath = "users.json";
-	private final Gson gson;
+import com.google.gson.reflect.TypeToken;
 
-	public JsonUserDatabase() {
-		this.gson = new GsonBuilder().setPrettyPrinting().create();
-	}
+public class JsonUserDatabase extends AJsonDatabase<List<User>> {
 
-	@Override
-	public List<User> loadData() {
-		try (Reader reader = new FileReader(filePath)) {
-			Type listType = new TypeToken<ArrayList<User>>() {
-			}.getType();
-			List<User> users = gson.fromJson(reader, listType);
-			return users != null ? users : new ArrayList<>();
-		} catch (FileNotFoundException e) {
-			System.out.println("Không tìm thấy file " + filePath + ". Tiến hành tạo mới.");
-			return new ArrayList<>();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return new ArrayList<>();
-		}
-	}
+    public JsonUserDatabase() {
+        super("users.json", new TypeToken<ArrayList<User>>() {}.getType());
+    }
 
-	@Override
-	public boolean saveData(List<User> data) {
-		try (Writer writer = new FileWriter(filePath)) {
-			gson.toJson(data, writer);
-			return true;
-		} catch (IOException e) {
-			System.out.println("Lỗi khi lưu file " + filePath);
-			e.printStackTrace();
-			return false;
-		}
-	}
-
+    @Override
+    protected List<User> getDefaultValue() {
+        return new ArrayList<>();
+    }
 	// Supporter method for Login and Register functions
 	public User checkLogin(String username, String password) {
 		List<User> users = loadData();

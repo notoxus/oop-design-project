@@ -14,7 +14,7 @@ public class RegisterForm extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private MainFrame mainFrame;
 	private RegisterManager registerManager;
-
+	// Main components
 	private JTextField txtName, txtUsername;
 	private JPasswordField txtPassword;
 	private JTextField txtAge, txtHeight, txtWeight;
@@ -22,7 +22,6 @@ public class RegisterForm extends JPanel {
 	private ButtonGroup bgGender;
 	private JComboBox<WorkoutGoal> cbGoal;
 	private JButton btnRegister, btnCancel;
-
 	private static final Color PRIMARY = new Color(33, 150, 243);
 	private static final Color PRIMARY_D = new Color(21, 101, 192);
 	private static final Color WHITE = Color.WHITE;

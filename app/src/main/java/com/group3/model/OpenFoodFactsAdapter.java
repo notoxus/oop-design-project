@@ -1,11 +1,11 @@
 package com.group3.model;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.group3.api.OpenFoodFactsAPI;
-import com.google.gson.JsonArray;
 import java.util.ArrayList;
 import java.util.List;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.group3.util.OpenFoodFactsAPI;
 
 public class OpenFoodFactsAdapter implements INutrition {
 

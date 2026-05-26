@@ -1,35 +1,50 @@
 package com.group3.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.group3.model.DataConnection;
 import com.group3.model.LogCollection;
+import com.group3.model.Observer;
+import com.group3.model.Subject;
 import com.group3.model.WorkoutLog;
 
-public class WorkoutLogController {
+public class WorkoutLogController implements Subject {
 	private DataConnection<LogCollection> workoutDB;
-
+	private List<Observer> observers;
+	
 	public WorkoutLogController(DataConnection<LogCollection> workoutDB) {
 		this.workoutDB = workoutDB;
+		this.observers = new ArrayList<>();
+	}
+	@Override
+	public void addObserver(Observer o) {
+		if (!observers.contains(o)) observers.add(o);
 	}
 
+	@Override
+	public void removeObserver(Observer o) {
+		observers.remove(o);
+	}
+
+	@Override
+	public void notifyObservers() {
+		for (Observer o : observers) {
+			o.update();
+		}
+	}
 	public boolean addWorkoutLog(WorkoutLog newWorkoutLog) {
 		if (newWorkoutLog == null) {
 			System.err.println("Lỗi: Không thể lưu một log rỗng!");
 			return false;
 		}
-
 		try {
 			LogCollection currentData = workoutDB.loadData();
 			currentData.getWorkoutLogs().add(newWorkoutLog);
 			boolean isSaved = workoutDB.saveData(currentData);
-
 			if (isSaved) {
-				System.out.println("Đã lưu log thành công, ID: " + newWorkoutLog.getLogID());
-			} else {
-				System.err.println("Lỗi khi ghi file JSON!");
+				notifyObservers();
 			}
-
 			return isSaved;
 
 		} catch (Exception e) {
@@ -44,13 +59,15 @@ public class WorkoutLogController {
 			boolean isRemoved = currentData.getWorkoutLogs().removeIf(log -> log.getLogID() == logID);
 
 			if (isRemoved) {
-				return workoutDB.saveData(currentData);
+				boolean saved = workoutDB.saveData(currentData);
+				if (saved) notifyObservers();
+				return saved;
 			}
-			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
+		return false;
 	}
 	public List<WorkoutLog> getAllLogs() {
 	    return workoutDB.loadData().getWorkoutLogs();

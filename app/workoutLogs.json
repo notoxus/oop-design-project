@@ -1,141 +1,77 @@
 [
   {
     "userID": 1,
-    "logID": 16860,
-    "date": "2026-05-17T19:00:16.8874608",
+    "logID": 88158,
+    "date": "2026-05-26T21:23:08.1626889",
     "exercise": {
-      "exerciseID": 201,
-      "exerciseName": "Dumbbell Bicep Curl",
-      "category": "ISOLATE",
-      "targetMuscle": "Tay trước (Biceps)"
-    },
-    "weight": 10.0,
-    "reps": 8
-  },
-  {
-    "userID": 1,
-    "logID": 76095,
-    "date": "2026-05-23T23:41:16.1059758",
-    "exercise": {
-      "exerciseID": 101,
-      "exerciseName": "Chạy bộ",
-      "category": "CARDIO",
+      "exerciseID": 77585,
+      "exerciseName": "Chạy nước rút",
+      "category": {
+        "catID": 6,
+        "catName": "HIIT (Cường độ cao)",
+        "defaultTracking": "DISTANCE_TIME",
+        "subCat": []
+      },
       "trackingType": "DISTANCE_TIME",
-      "targetMuscle": "Tim mạch \u0026 Chân"
-    },
-    "distance": 10.0,
-    "time": 60.0
-  },
-  {
-    "userID": 1,
-    "logID": 49718,
-    "date": "2026-05-23T23:55:49.7241677",
-    "exercise": {
-      "exerciseID": 101,
-      "exerciseName": "Chạy bộ",
-      "category": "CARDIO",
-      "trackingType": "DISTANCE_TIME",
-      "targetMuscle": "Tim mạch \u0026 Chân"
+      "targetMuscle": "Tim mạch"
     },
     "distance": 5.0,
-    "time": 36.0
+    "time": 25.0
   },
   {
     "userID": 1,
-    "logID": 65552,
-    "date": "2026-05-24T00:01:05.5584916",
+    "logID": 93302,
+    "date": "2026-05-26T21:23:13.3024239",
     "exercise": {
-      "exerciseID": 201,
-      "exerciseName": "Dumbbell Bicep Curl",
-      "category": "ISOLATE",
-      "trackingType": "WEIGHT_REP",
-      "targetMuscle": "Tay trước (Biceps)"
-    },
-    "weight": 10.0,
-    "reps": 8
-  },
-  {
-    "userID": 1,
-    "logID": 82584,
-    "date": "2026-05-24T00:01:22.5859399",
-    "exercise": {
-      "exerciseID": 201,
-      "exerciseName": "Dumbbell Bicep Curl",
-      "category": "ISOLATE",
-      "trackingType": "WEIGHT_REP",
-      "targetMuscle": "Tay trước (Biceps)"
-    },
-    "weight": 10.0,
-    "reps": 10
-  },
-  {
-    "userID": 1,
-    "logID": 98490,
-    "date": "2026-05-24T00:06:38.4968477",
-    "exercise": {
-      "exerciseID": 302,
-      "exerciseName": "Barbell Squat",
-      "category": "COMPOUND",
-      "trackingType": "WEIGHT_REP",
-      "targetMuscle": "Đùi \u0026 Mông (Legs/Glutes)"
-    },
-    "weight": 17.0,
-    "reps": 8
-  },
-  {
-    "userID": 1,
-    "logID": 3866,
-    "date": "2026-05-24T00:06:43.8669081",
-    "exercise": {
-      "exerciseID": 302,
-      "exerciseName": "Barbell Squat",
-      "category": "COMPOUND",
-      "trackingType": "WEIGHT_REP",
-      "targetMuscle": "Đùi \u0026 Mông (Legs/Glutes)"
-    },
-    "weight": 17.0,
-    "reps": 10
-  },
-  {
-    "userID": 1,
-    "logID": 47461,
-    "date": "2026-05-24T00:12:27.4683743",
-    "exercise": {
-      "exerciseID": 202,
-      "exerciseName": "Tricep Extension",
-      "category": "ISOLATE",
-      "trackingType": "WEIGHT_REP",
-      "targetMuscle": "Tay sau (Triceps)"
-    },
-    "weight": 25.0,
-    "reps": 12
-  },
-  {
-    "userID": 1,
-    "logID": 66204,
-    "date": "2026-05-24T00:12:46.2049041",
-    "exercise": {
-      "exerciseID": 202,
-      "exerciseName": "Tricep Extension",
-      "category": "ISOLATE",
-      "trackingType": "WEIGHT_REP",
-      "targetMuscle": "Tay sau (Triceps)"
-    },
-    "weight": 27.5,
-    "reps": 8
-  },
-  {
-    "userID": 1,
-    "logID": 63295,
-    "date": "2026-05-24T00:27:43.3027854",
-    "exercise": {
-      "exerciseID": 101,
-      "exerciseName": "Chạy bộ",
-      "category": "CARDIO",
+      "exerciseID": 77585,
+      "exerciseName": "Chạy nước rút",
+      "category": {
+        "catID": 6,
+        "catName": "HIIT (Cường độ cao)",
+        "defaultTracking": "DISTANCE_TIME",
+        "subCat": []
+      },
       "trackingType": "DISTANCE_TIME",
-      "targetMuscle": "Tim mạch \u0026 Chân"
+      "targetMuscle": "Tim mạch"
     },
-    "distance": 15.0,
-    "time": 136.0
+    "distance": 5.5,
+    "time": 25.0
+  },
+  {
+    "userID": 1,
+    "logID": 30443,
+    "date": "2026-05-26T21:23:50.4430684",
+    "exercise": {
+      "exerciseID": 40862,
+      "exerciseName": "Dumbbell Bicep Curl",
+      "category": {
+        "catID": 5,
+        "catName": "ISOLATE",
+        "defaultTracking": "WEIGHT_REP",
+        "subCat": []
+      },
+      "trackingType": "WEIGHT_REP",
+      "targetMuscle": "Tay trước"
+    },
+    "weight": 7.5,
+    "reps": 8
+  },
+  {
+    "userID": 1,
+    "logID": 44618,
+    "date": "2026-05-26T21:24:04.6183388",
+    "exercise": {
+      "exerciseID": 35821,
+      "exerciseName": "Yoga",
+      "category": {
+        "catID": 8,
+        "catName": "Yoga",
+        "defaultTracking": "TIME_ONLY",
+        "subCat": []
+      },
+      "trackingType": "TIME_ONLY",
+      "targetMuscle": "Toàn thân"
+    },
+    "time": 15.0
   }
 ]

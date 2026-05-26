@@ -22,24 +22,32 @@ public class AdminController {
 	}
 	// They are Admin's functions
 	// Add Exercise to Exercise Library
-	public boolean addExercise(int id, String name, ExerciseCategory category, TrackingType trackingType,
-            String targetMuscle) {
-        try {
-            Exercise newExercise = new Exercise.ExerciseBuilder().setExerciseID(id).setExerciseName(name)
-                    .setCategory(category).setTrackingType(trackingType).setTargetMuscle(targetMuscle).build();
-
-            exerciseLibrary.addExercise(newExercise);
-            
-            libraryDB.saveData(exerciseLibrary.getLib());
-            
-            System.out.println("Đã thêm bài tập: " + newExercise.getExerciseName() + " thành công!");
-            return true;
-
-        } catch (IllegalStateException e) {
-            System.out.println("Không thể tạo bài tập! Lỗi: " + e.getMessage());
-            return false;
-        }
-    }
+	public boolean addExercise(int id, String name, ExerciseCategory category, TrackingType trackingType, String targetMuscle) {
+	    try {
+	    	// Invoke Exercise Factory
+	        Exercise newExercise = ExerciseFactory.createExercise(id, name, category, trackingType, targetMuscle);
+	        exerciseLibrary.addExercise(newExercise);
+	        libraryDB.saveData(exerciseLibrary.getLib());
+	        System.out.println("Đã thêm bài tập: " + newExercise.getExerciseName() + " thành công!");
+	        return true;
+	    } catch (IllegalStateException e) {
+	        System.out.println("Không thể tạo bài tập! Lỗi: " + e.getMessage());
+	        return false;
+	    }
+	}
+	public boolean updateExercise(Exercise oldExercise, String newName, ExerciseCategory category, TrackingType trackingType, String targetMuscle) {
+		try {
+			Exercise updatedExercise = ExerciseFactory.createExercise(oldExercise.getExerciseID(), newName, category, trackingType, targetMuscle);
+			exerciseLibrary.removeExercise(oldExercise);
+			exerciseLibrary.addExercise(updatedExercise);
+			libraryDB.saveData(exerciseLibrary.getLib());
+			System.out.println("Đã cập nhật bài tập: " + newName);
+			return true;
+		} catch (Exception e) {
+			System.out.println("Không thể cập nhật! Lỗi: " + e.getMessage());
+			return false;
+		}
+	}
 	// Remove Exercise from Exercise Library
     public boolean deleteExercise(String exerciseName) {
         Exercise target = exerciseLibrary.searchExercise(exerciseName);
