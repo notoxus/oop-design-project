@@ -81,7 +81,7 @@ public class ExerciseLibraryUI extends JPanel implements Observer {
 		this.suggestionService = suggestionService;
 		this.adminController = adminController;
 		this.dashboardUI = dashboardUI;
-		this.library.addObserver(this);
+		this.library.add(this);
 		initComponents();
 		setupEvents();
 		renderCards();
@@ -551,8 +551,8 @@ public class ExerciseLibraryUI extends JPanel implements Observer {
 		cbSubCategory.addActionListener(e -> {
 			ExerciseCategory selectedSub = (ExerciseCategory) cbSubCategory.getSelectedItem();
 			cbTracking.removeAllItems();
-			if (selectedSub != null && selectedSub.getAllowedTrackingTypes() != null) {
-				for (TrackingType type : selectedSub.getAllowedTrackingTypes()) {
+			if (selectedSub != null && selectedSub.getAllowedTrackingType() != null) {
+				for (TrackingType type : selectedSub.getAllowedTrackingType()) {
 					cbTracking.addItem(type);
 				}
 			}
@@ -647,8 +647,8 @@ public class ExerciseLibraryUI extends JPanel implements Observer {
 		cbSubCategory.addActionListener(e -> {
 			ExerciseCategory selectedSub = (ExerciseCategory) cbSubCategory.getSelectedItem();
 			cbTracking.removeAllItems();
-			if (selectedSub != null && selectedSub.getAllowedTrackingTypes() != null) {
-				for (TrackingType type : selectedSub.getAllowedTrackingTypes()) {
+			if (selectedSub != null && selectedSub.getAllowedTrackingType() != null) {
+				for (TrackingType type : selectedSub.getAllowedTrackingType()) {
 					cbTracking.addItem(type);
 				}
 			}

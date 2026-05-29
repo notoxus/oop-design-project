@@ -14,7 +14,7 @@ public class MainFrame extends JFrame {
 
     private LoginManager loginManager;
     private RegisterManager registerManager;
-    private JsonLibraryDatabase libraryDB;
+    private JsonExerciseDatabase libraryDB;
     private JsonUserDatabase userDB;
     private WorkoutLogController workoutCtrl;
     private WorkoutHandling workoutHandling;
@@ -24,7 +24,7 @@ public class MainFrame extends JFrame {
     private ExerciseSuggestionService suggestionService;
 
     public MainFrame(LoginManager loginManager, RegisterManager registerManager, 
-                        JsonLibraryDatabase libraryDB, JsonUserDatabase userDB, 
+                        JsonExerciseDatabase libraryDB, JsonUserDatabase userDB, 
                         WorkoutLogController workoutCtrl, WorkoutHandling workoutHandling, 
                         ExerciseLibrary library, NutritionLogController nutritionCtrl, 
                         StatisticsPresenter statPresenter, ExerciseSuggestionService suggestionService) {

@@ -16,7 +16,7 @@ public class ExerciseLibrary implements Subject {
 	}
 
 	@Override
-	public void addObserver(Observer o) {
+	public void add(Observer o) {
 		if (observers == null)
 			observers = new ArrayList<>();
 		if (!observers.contains(o))
@@ -24,7 +24,7 @@ public class ExerciseLibrary implements Subject {
 	}
 
 	@Override
-	public void removeObserver(Observer o) {
+	public void remove(Observer o) {
 		if (observers != null)
 			observers.remove(o);
 	}
@@ -62,7 +62,7 @@ public class ExerciseLibrary implements Subject {
 		return result;
 	}
 
-	public List<Exercise> getByCategoryName(String catName) {
+	public List<Exercise> getCategoryByName(String catName) {
 		List<Exercise> result = new ArrayList<>();
 		for (Exercise exercises : lib) {
 			if (exercises.getCategory().getCatName().equalsIgnoreCase(catName)) {

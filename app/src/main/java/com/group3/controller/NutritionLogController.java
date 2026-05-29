@@ -70,12 +70,12 @@ public class NutritionLogController implements Subject {
         return nutritionDB.loadData().getNutritionLogs();
     }
     @Override
-	public void addObserver(Observer o) {
+	public void add(Observer o) {
 		if (!observers.contains(o)) observers.add(o);
 	}
 
 	@Override
-	public void removeObserver(Observer o) {
+	public void remove(Observer o) {
 		observers.remove(o);
 	}
 

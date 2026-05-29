@@ -45,8 +45,8 @@ public class StatisticsUI extends JPanel implements Observer {
 		this.presenter = presenter;
 		this.user = user;
 		this.workoutHandling = workoutHandling;
-		wCtrl.addObserver(this);
-		nCtrl.addObserver(this);
+		wCtrl.add(this);
+		nCtrl.add(this);
 		initComponents();
 		refreshData();
 	}
@@ -165,7 +165,7 @@ public class StatisticsUI extends JPanel implements Observer {
 			WorkoutGoal selectedGoal = (WorkoutGoal) cbGoal.getSelectedItem();
 			if (selectedGoal != null) {
 				user.setGoal(selectedGoal);
-				boolean success = presenter.updateUserGoal(user);
+				boolean success = presenter.updateGoal(user);
 
 				if (success) {
 					workoutHandling.setGoal(user);
@@ -194,7 +194,7 @@ public class StatisticsUI extends JPanel implements Observer {
 		double sumVolume = 0;
 		double sumCalo = 0;
 
-		Map<LocalDate, Map<ExerciseCategory, Double>> workoutData = presenter.getWorkoutVolumeChartData(currentUserId);
+		Map<LocalDate, Map<ExerciseCategory, Double>> workoutData = presenter.getWorkoutChartData(currentUserId);
 		for (Map.Entry<LocalDate, Map<ExerciseCategory, Double>> entry : workoutData.entrySet()) {
 			String dateStr = entry.getKey().format(dateFormatter);
 			for (Map.Entry<ExerciseCategory, Double> catEntry : entry.getValue().entrySet()) {
@@ -203,7 +203,7 @@ public class StatisticsUI extends JPanel implements Observer {
 			}
 		}
 
-		Map<LocalDate, Double> nutritionData = presenter.getNutritionCaloriesChartData(currentUserId);
+		Map<LocalDate, Double> nutritionData = presenter.getNutritionChartData(currentUserId);
 		for (Map.Entry<LocalDate, Double> entry : nutritionData.entrySet()) {
 			String dateStr = entry.getKey().format(dateFormatter);
 			nutritionDataset.addValue(entry.getValue(), "Calo", dateStr);
@@ -213,7 +213,7 @@ public class StatisticsUI extends JPanel implements Observer {
 		lblTotalVolume.setText(String.format("%.1f kg", sumVolume));
 		lblTotalCalo.setText(String.format("%.1f kcal", sumCalo));
 
-		List<WorkoutLog> recentWLogs = presenter.getRecentWorkoutLogs(currentUserId, 5);
+		List<WorkoutLog> recentWLogs = presenter.getRecentWorkout(currentUserId, 5);
 		for (int i = recentWLogs.size() - 1; i >= 0; i--) {
 			WorkoutLog log = recentWLogs.get(i);
 			String resultStr = "—";
@@ -230,7 +230,7 @@ public class StatisticsUI extends JPanel implements Observer {
 					log.getExercise().getExerciseName(), resultStr });
 		}
 
-		List<NutritionLog> recentNLogs = presenter.getRecentNutritionLogs(currentUserId, 5);
+		List<NutritionLog> recentNLogs = presenter.getRecentNutrition(currentUserId, 5);
 		for (int i = recentNLogs.size() - 1; i >= 0; i--) {
 			NutritionLog log = recentNLogs.get(i);
 			recentNutritionModel.addRow(new Object[] { log.getAddTime().format(dateFormatter), log.getProductName(),

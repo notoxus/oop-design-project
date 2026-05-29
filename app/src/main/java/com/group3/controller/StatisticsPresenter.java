@@ -60,7 +60,7 @@ public class StatisticsPresenter {
 		return new double[] { totalVolume, totalDistance };
 	}
 
-	public Map<LocalDate, Map<ExerciseCategory, Double>> getWorkoutVolumeChartData(int userID) {
+	public Map<LocalDate, Map<ExerciseCategory, Double>> getWorkoutChartData(int userID) {
 	    LogCollection data = database.loadData();
 	    Map<LocalDate, Map<ExerciseCategory, Double>> chartData = new TreeMap<>();
 
@@ -85,7 +85,7 @@ public class StatisticsPresenter {
 	    return chartData;
 	}
 
-	public Map<LocalDate, Double> getNutritionCaloriesChartData(int userID) {
+	public Map<LocalDate, Double> getNutritionChartData(int userID) {
 		LogCollection data = database.loadData();
 		Map<LocalDate, Double> chartData = new TreeMap<>();
 
@@ -101,11 +101,11 @@ public class StatisticsPresenter {
 		return chartData;
 	}
 
-	public boolean updateUserGoal(User updatedUser) {
-		return new JsonUserDatabase().updateUser(updatedUser);
+	public boolean updateGoal(User user) {
+		return new JsonUserDatabase().updateUser(user);
 	}
 
-	public List<WorkoutLog> getRecentWorkoutLogs(int userID, int limit) {
+	public List<WorkoutLog> getRecentWorkout(int userID, int limit) {
 		List<WorkoutLog> userLogs = database.loadData().getWorkoutLogs().stream()
 				.filter(log -> log.getUserID() == userID).collect(Collectors.toList());
 
@@ -113,7 +113,7 @@ public class StatisticsPresenter {
 		return userLogs.subList(start, userLogs.size());
 	}
 
-	public List<NutritionLog> getRecentNutritionLogs(int userID, int limit) {
+	public List<NutritionLog> getRecentNutrition(int userID, int limit) {
 		List<NutritionLog> userLogs = database.loadData().getNutritionLogs().stream()
 				.filter(log -> log.getUserID() == userID).collect(Collectors.toList());
 

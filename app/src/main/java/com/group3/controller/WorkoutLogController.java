@@ -18,12 +18,12 @@ public class WorkoutLogController implements Subject {
 		this.observers = new ArrayList<>();
 	}
 	@Override
-	public void addObserver(Observer o) {
+	public void add(Observer o) {
 		if (!observers.contains(o)) observers.add(o);
 	}
 
 	@Override
-	public void removeObserver(Observer o) {
+	public void remove(Observer o) {
 		observers.remove(o);
 	}
 
@@ -53,7 +53,7 @@ public class WorkoutLogController implements Subject {
 		}
 	}
 
-	public boolean deleteWorkoutLog(int logID) {
+	public boolean removeWorkoutLog(int logID) {
 		try {
 			LogCollection currentData = workoutDB.loadData();
 			boolean isRemoved = currentData.getWorkoutLogs().removeIf(log -> log.getLogID() == logID);

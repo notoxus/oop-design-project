@@ -10,10 +10,10 @@ import com.group3.model.RecommendationResult;
 
 public class WorkoutHandling {
 
-	private NextSetRecommendationStrategy currentStrategy;
+	private NextSetRecommendationStrategy nextSetStrategy;
 
 	public RecommendationResult calculateNextSet(WorkoutLog currentLog) {
-        if (this.currentStrategy == null) {
+        if (this.nextSetStrategy == null) {
             throw new IllegalStateException("Chưa thiết lập chiến lược tập luyện (Strategy)!");
         }
         
@@ -21,25 +21,25 @@ public class WorkoutHandling {
             return new NoWeightStrategy().calculateNextSet(currentLog);
         }
 
-        return this.currentStrategy.calculateNextSet(currentLog);
+        return this.nextSetStrategy.calculateNextSet(currentLog);
     }
 
 	public void setGoal(User user) {
 		if (user == null || user.getGoal() == null) {
-			this.currentStrategy = new NoWeightStrategy();
+			this.nextSetStrategy = new NoWeightStrategy();
 			return;
 		}
 
 		switch (user.getGoal()) {
 		case MUSCLE_GAIN:
-			this.currentStrategy = new MuscleGainStrategy();
+			this.nextSetStrategy = new MuscleGainStrategy();
 			break;
 		case LOSE_FAT:
-			this.currentStrategy = new LoseFatStrategy();
+			this.nextSetStrategy = new LoseFatStrategy();
 			break;
 		case MAINTENANCE:
 		default:
-			this.currentStrategy = new NoWeightStrategy();
+			this.nextSetStrategy = new NoWeightStrategy();
 			break;
 		}
 	}

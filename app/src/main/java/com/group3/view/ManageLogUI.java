@@ -34,8 +34,8 @@ public class ManageLogUI extends JPanel implements Observer {
     	this.workoutCtrl = workoutCtrl;
         this.nutritionCtrl = nutritionCtrl;
         
-    	this.workoutCtrl.addObserver(this);
-        this.nutritionCtrl.addObserver(this);
+    	this.workoutCtrl.add(this);
+        this.nutritionCtrl.add(this);
         initComponents();
         loadWorkoutData();
         loadNutritionData();
@@ -258,7 +258,7 @@ public class ManageLogUI extends JPanel implements Observer {
         int logID = logs.get(row).getLogID();
         if (JOptionPane.showConfirmDialog(this, "Xóa log tập luyện này?", "Xác nhận",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            if (workoutCtrl.deleteWorkoutLog(logID)) {
+            if (workoutCtrl.removeWorkoutLog(logID)) {
                 JOptionPane.showMessageDialog(this, "Đã xóa thành công!");
                 loadWorkoutData();
             }

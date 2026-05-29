@@ -4,8 +4,8 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JsonLibraryDatabase extends AJsonDatabase<List<Exercise>> {
-    public JsonLibraryDatabase() {
+public class JsonExerciseDatabase extends AJsonDatabase<List<Exercise>> {
+    public JsonExerciseDatabase() {
         super("exerciseLibrary.json", new TypeToken<ArrayList<Exercise>>() {}.getType());
     }
 

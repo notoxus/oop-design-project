@@ -26,7 +26,7 @@ public class ExerciseCategory {
 		this.subCat.add(newSubCat);
 	}
 
-	public List<TrackingType> getAllowedTrackingTypes() {
+	public List<TrackingType> getAllowedTrackingType() {
 		return allowedTrackingTypes;
 	}
 

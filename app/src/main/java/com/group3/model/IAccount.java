@@ -1,6 +1,6 @@
 package com.group3.model;
 
 public interface IAccount {
-	String getUsername();
-	String getPassword();
+	public String getUsername();
+	public String getPassword();
 }

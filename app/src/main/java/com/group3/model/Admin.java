@@ -19,5 +19,4 @@ public class Admin implements IAccount {
 	public String getPassword() {
 		return password;
 	}
-	
 }

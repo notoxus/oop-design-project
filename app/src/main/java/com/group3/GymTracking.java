@@ -20,7 +20,7 @@ import com.group3.model.ExerciseCategory;
 import com.group3.model.ExerciseLibrary;
 import com.group3.model.JsonAdminDatabase;
 import com.group3.model.JsonCategoryDatabase;
-import com.group3.model.JsonLibraryDatabase;
+import com.group3.model.JsonExerciseDatabase;
 import com.group3.model.JsonLogDatabase;
 import com.group3.model.JsonUserDatabase;
 import com.group3.model.OpenFoodFactsAdapter;
@@ -38,7 +38,7 @@ public class GymTracking {
         JsonUserDatabase userDB = new JsonUserDatabase();
         JsonAdminDatabase adminDB = new JsonAdminDatabase();
         JsonLogDatabase logDB = new JsonLogDatabase();
-        JsonLibraryDatabase libraryDB = new JsonLibraryDatabase();
+        JsonExerciseDatabase libraryDB = new JsonExerciseDatabase();
         JsonCategoryDatabase catDB = new JsonCategoryDatabase();
         List<ExerciseCategory> categories = catDB.loadData();
 

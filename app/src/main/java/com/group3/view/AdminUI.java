@@ -52,7 +52,7 @@ public class AdminUI extends JPanel {
 
 		JButton btnLibrary = createNavButton("📚", "Thư viện bài tập");
 		JButton btnUsers = createNavButton("👥", "Người dùng");
-		JButton btnLogout = createNavButton("🚪", "Đăng xuất"); // Nút mới
+		JButton btnLogout = createNavButton("🚪", "Đăng xuất");
 
 		navBar.add(btnLibrary);
 		navBar.add(btnUsers);

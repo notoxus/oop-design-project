@@ -7,10 +7,10 @@ import com.group3.model.*;
 public class AdminController {
 	private ExerciseLibrary exerciseLibrary;
 	private Admin admin;
-	private JsonLibraryDatabase libraryDB;
+	private JsonExerciseDatabase libraryDB;
     private JsonUserDatabase userDB;
 
-	public AdminController(ExerciseLibrary exerciseLibrary, Admin admin, JsonLibraryDatabase libraryDB,
+	public AdminController(ExerciseLibrary exerciseLibrary, Admin admin, JsonExerciseDatabase libraryDB,
 			JsonUserDatabase userDB) {
 		if (admin == null) {
             throw new IllegalArgumentException("Không thể khởi tạo! Bạn không phải là Admin!");
