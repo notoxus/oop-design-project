@@ -2,9 +2,11 @@ package com.group3.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.StringReader;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 import com.group3.util.OpenFoodFactsAPI;
 
 public class OpenFoodFactsAdapter implements INutrition {
@@ -21,12 +23,12 @@ public class OpenFoodFactsAdapter implements INutrition {
         String jsonResponse = api.fetchNutritionData(productName);
 
         if (jsonResponse == null || jsonResponse.isBlank() || jsonResponse.contains("\"count\":0")) {
-            System.out.println("Không tìm thấy sản phẩm này trên hệ thống.");
+            System.out.println("No matching product found from OpenFoodFacts.");
             return results;
         }
 
         try {
-            JsonObject root = JsonParser.parseString(jsonResponse).getAsJsonObject();
+            JsonObject root = parseJsonObject(jsonResponse);
             JsonArray products = root.getAsJsonArray("products");
             if (products == null || products.size() == 0) {
                 return results;
@@ -47,7 +49,7 @@ public class OpenFoodFactsAdapter implements INutrition {
                 JsonObject nutriments = p.getAsJsonObject("nutriments");
 
                 NutritionLog item = new NutritionLog.Builder()
-                        .setProductID((int) (System.currentTimeMillis() % 100000) + i) // Tránh trùng ID
+                        .setProductID((int) (System.currentTimeMillis() % 100000) + i)
                         .setProductName(realName)
                         .setEnergy(getSafeDouble(nutriments, "energy-kcal_100g"))
                         .setProtein(getSafeDouble(nutriments, "proteins_100g"))
@@ -59,15 +61,24 @@ public class OpenFoodFactsAdapter implements INutrition {
             }
 
         } catch (Exception e) {
-            System.err.println("Lỗi khi phân tích dữ liệu JSON từ API!");
-            e.printStackTrace();
+            System.err.println("Failed to parse OpenFoodFacts response: " + e.getMessage());
         }
         return results;
     }
 
+    private JsonObject parseJsonObject(String jsonResponse) {
+        JsonReader reader = new JsonReader(new StringReader(jsonResponse));
+        reader.setLenient(true);
+        return JsonParser.parseReader(reader).getAsJsonObject();
+    }
+
     private Double getSafeDouble(JsonObject obj, String key) {
         if (obj != null && obj.has(key) && !obj.get(key).isJsonNull()) {
-            return obj.get(key).getAsDouble();
+            try {
+                return obj.get(key).getAsDouble();
+            } catch (NumberFormatException | UnsupportedOperationException e) {
+                return null;
+            }
         }
         return null;
     }

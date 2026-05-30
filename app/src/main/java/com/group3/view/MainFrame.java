@@ -76,7 +76,7 @@ public class MainFrame extends JFrame {
 
     public void showAdminDashboard(Admin admin) {
         AdminController adminController = new AdminController(library, admin, libraryDB, userDB);
-        AdminUI adminDashboard = new AdminUI(this, adminController, admin, library);
+        AdminUI adminDashboard = new AdminUI(this, adminController, admin, library, workoutCtrl);
         mainContainer.add(adminDashboard, "ADMIN_DASHBOARD");
         cardLayout.show(mainContainer, "ADMIN_DASHBOARD");
     }

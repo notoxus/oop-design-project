@@ -13,6 +13,7 @@ import com.group3.controller.NutritionLogController;
 import com.group3.controller.WorkoutLogController;
 import com.group3.model.NutritionLog;
 import com.group3.model.Observer;
+import com.group3.model.User;
 import com.group3.model.WorkoutLog;
 
 public class ManageLogUI extends JPanel implements Observer {
@@ -25,14 +26,18 @@ public class ManageLogUI extends JPanel implements Observer {
 
     private WorkoutLogController workoutCtrl;
     private NutritionLogController nutritionCtrl;
+    private User user;
 
     private JTable workoutTable, nutritionTable;
     private DefaultTableModel workoutModel, nutritionModel;
+    private List<WorkoutLog> displayedWorkoutLogs;
+    private List<NutritionLog> displayedNutritionLogs;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
 
-    public ManageLogUI(WorkoutLogController workoutCtrl, NutritionLogController nutritionCtrl) {
+    public ManageLogUI(WorkoutLogController workoutCtrl, NutritionLogController nutritionCtrl, User user) {
     	this.workoutCtrl = workoutCtrl;
         this.nutritionCtrl = nutritionCtrl;
+        this.user = user;
         
     	this.workoutCtrl.add(this);
         this.nutritionCtrl.add(this);
@@ -215,8 +220,11 @@ public class ManageLogUI extends JPanel implements Observer {
     private void loadWorkoutData() {
         workoutModel.setRowCount(0);
         List<WorkoutLog> logs = workoutCtrl.getAllLogs();
+        displayedWorkoutLogs = new java.util.ArrayList<>();
         if (logs == null) return;
         for (WorkoutLog log : logs) {
+            if (log.getUserID() != user.getUserID()) continue;
+            displayedWorkoutLogs.add(log);
             String resultStr = "—";
             if (log.getDistance() != null && log.getTime() != null && log.getDistance() > 0) {
                 resultStr = String.format("%.1f km — Pace: %.2f", log.getDistance(), log.paceCal());
@@ -239,8 +247,11 @@ public class ManageLogUI extends JPanel implements Observer {
     private void loadNutritionData() {
         nutritionModel.setRowCount(0);
         List<NutritionLog> logs = nutritionCtrl.getAllLogs();
+        displayedNutritionLogs = new java.util.ArrayList<>();
         if (logs == null) return;
         for (NutritionLog log : logs) {
+            if (log.getUserID() != user.getUserID()) continue;
+            displayedNutritionLogs.add(log);
             nutritionModel.addRow(new Object[]{
                 log.getAddTime().format(formatter),
                 log.getProductName(),
@@ -253,9 +264,8 @@ public class ManageLogUI extends JPanel implements Observer {
     private void deleteWorkoutLog() {
         int row = workoutTable.getSelectedRow();
         if (row == -1) { JOptionPane.showMessageDialog(this, "Vui lòng chọn log cần xóa!"); return; }
-        List<WorkoutLog> logs = workoutCtrl.getAllLogs();
-        if (logs == null || row >= logs.size()) return;
-        int logID = logs.get(row).getLogID();
+        if (displayedWorkoutLogs == null || row >= displayedWorkoutLogs.size()) return;
+        int logID = displayedWorkoutLogs.get(row).getLogID();
         if (JOptionPane.showConfirmDialog(this, "Xóa log tập luyện này?", "Xác nhận",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             if (workoutCtrl.removeWorkoutLog(logID)) {
@@ -268,9 +278,8 @@ public class ManageLogUI extends JPanel implements Observer {
     private void deleteNutritionLog() {
         int row = nutritionTable.getSelectedRow();
         if (row == -1) { JOptionPane.showMessageDialog(this, "Vui lòng chọn log cần xóa!"); return; }
-        List<NutritionLog> logs = nutritionCtrl.getAllLogs();
-        if (logs == null || row >= logs.size()) return;
-        int logID = logs.get(row).getLogID();
+        if (displayedNutritionLogs == null || row >= displayedNutritionLogs.size()) return;
+        int logID = displayedNutritionLogs.get(row).getLogID();
         if (JOptionPane.showConfirmDialog(this, "Xóa log dinh dưỡng này?", "Xác nhận",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             if (nutritionCtrl.removeNutritionLog(logID)) {

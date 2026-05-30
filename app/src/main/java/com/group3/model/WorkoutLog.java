@@ -128,9 +128,6 @@ public class WorkoutLog {
         if (reps != null) sb.append("Số hiệp: ").append(reps).append("\n");
         if (distance != null) sb.append("Quãng đường: ").append(distance).append(" km\n");
         if (time != null) sb.append("Thời gian: ").append(time).append(" phút\n");
-        if(distance != null && time != null) {
-        	System.out.println("Pace: " + paceCal());
-        }
         return sb.toString();
     }
 

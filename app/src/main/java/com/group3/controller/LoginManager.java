@@ -19,16 +19,16 @@ public class LoginManager {
     	// Invoke checkLogin method to compare to account in our system
         Admin admin = adminDatabase.checkLogin(username, password);
         if (admin != null) {
-            System.out.println("Đăng nhập thành công! Bạn hiện là Quản Trị Viên!");
+            System.out.println("Admin login successful.");
             return admin;
         }
         User user = userDatabase.checkLogin(username, password);
         if (user != null) {
-            System.out.println("Đăng nhập thành công! Chào mừng " + user.getName());
+            System.out.println("User login successful: " + user.getName());
             return user;
         }
         
-        System.out.println("Tên đăng nhập hoặc mật khẩu không đúng! Vui lòng thử lại.");
+        System.out.println("Login failed: invalid username or password.");
         return null;
     }
 }

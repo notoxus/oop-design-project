@@ -22,7 +22,7 @@ public class NutritionLogController implements Subject {
     // Look up nutrition product depend on product name
     public List<NutritionLog> lookupNutrition(String productName) {
         if (nutrition == null) {
-            System.err.println("API chưa được khởi tạo!");
+            System.err.println("Nutrition API is not initialized.");
             return new ArrayList<>();
         }
         return nutrition.getNutritionInfo(productName); 
@@ -30,7 +30,7 @@ public class NutritionLogController implements Subject {
     // Add that one to our nutrition log
     public boolean addNutritionLog(NutritionLog newNutritionLog) {
         if (newNutritionLog == null) {
-            System.err.println("Lỗi: Không thể lưu một nhật ký dinh dưỡng rỗng!");
+            System.err.println("Cannot save a null nutrition log.");
             return false;
         }
 
@@ -40,14 +40,15 @@ public class NutritionLogController implements Subject {
             boolean isSaved = nutritionDB.saveData(currentData);
 
             if (isSaved) {
-                System.out.println("Đã thêm sản phẩm: " + newNutritionLog.getProductName() + " thành công!");
+                notifyObservers();
+                System.out.println("Nutrition log added successfully: " + newNutritionLog.getProductName());
             } else {
-                System.err.println("Lỗi: không thể ghi dữ liệu vào DB!");
+                System.err.println("Unable to write nutrition log data to storage.");
             }
             return isSaved;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Failed to add nutrition log: " + e.getMessage());
             return false;
         }
     }
@@ -57,11 +58,13 @@ public class NutritionLogController implements Subject {
             boolean isRemoved = currentData.getNutritionLogs().removeIf(log -> log.getLogID() == logID);
             
             if (isRemoved) {
-                return nutritionDB.saveData(currentData);
+                boolean saved = nutritionDB.saveData(currentData);
+                if (saved) notifyObservers();
+                return saved;
             }
             return false;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Failed to remove nutrition log: " + e.getMessage());
             return false;
         }
     }

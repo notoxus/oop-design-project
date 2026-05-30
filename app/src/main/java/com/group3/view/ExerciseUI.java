@@ -160,6 +160,10 @@ public class ExerciseUI extends JPanel {
                     JOptionPane.showMessageDialog(this, "Bạn chưa chọn bài tập từ Thư viện!");
                     return;
                 }
+                if (hasMissingRequiredInput()) {
+                    JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin set tập hoặc bật gợi ý tự động!");
+                    return;
+                }
                 Double weight = getDoubleValue(txtWeight);
                 Integer reps = getIntValue(txtReps);
                 Double distance = getDoubleValue(txtDistance);
@@ -187,16 +191,27 @@ public class ExerciseUI extends JPanel {
 
     private Double getDoubleValue(HintTextField txt) {
         if (!txt.isVisible()) return null;
-        if (!txt.getText().isEmpty()) return Double.parseDouble(txt.getText());
+        if (!txt.getText().trim().isEmpty()) return Double.parseDouble(txt.getText().trim());
         if (isHintEnabled && !txt.getHint().isEmpty()) return Double.parseDouble(txt.getHint());
         return null;
     }
 
     private Integer getIntValue(HintTextField txt) {
         if (!txt.isVisible()) return null;
-        if (!txt.getText().isEmpty()) return Integer.parseInt(txt.getText());
+        if (!txt.getText().trim().isEmpty()) return Integer.parseInt(txt.getText().trim());
         if (isHintEnabled && !txt.getHint().isEmpty()) return Integer.parseInt(txt.getHint());
         return null;
+    }
+
+    private boolean hasMissingRequiredInput() {
+        return isMissingRequiredInput(txtWeight) || isMissingRequiredInput(txtReps)
+                || isMissingRequiredInput(txtDistance) || isMissingRequiredInput(txtTime);
+    }
+
+    private boolean isMissingRequiredInput(HintTextField txt) {
+        if (!txt.isVisible()) return false;
+        if (!txt.getText().trim().isEmpty()) return false;
+        return !isHintEnabled || txt.getHint().isEmpty();
     }
 
     public void setSelectedExercise(Exercise ex) {

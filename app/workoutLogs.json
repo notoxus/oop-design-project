@@ -9,7 +9,6 @@
       "category": {
         "catID": 6,
         "catName": "HIIT (Cường độ cao)",
-        "defaultTracking": "DISTANCE_TIME",
         "subCat": []
       },
       "trackingType": "DISTANCE_TIME",
@@ -28,7 +27,6 @@
       "category": {
         "catID": 6,
         "catName": "HIIT (Cường độ cao)",
-        "defaultTracking": "DISTANCE_TIME",
         "subCat": []
       },
       "trackingType": "DISTANCE_TIME",
@@ -47,7 +45,6 @@
       "category": {
         "catID": 5,
         "catName": "ISOLATE",
-        "defaultTracking": "WEIGHT_REP",
         "subCat": []
       },
       "trackingType": "WEIGHT_REP",
@@ -66,7 +63,6 @@
       "category": {
         "catID": 8,
         "catName": "Yoga",
-        "defaultTracking": "TIME_ONLY",
         "subCat": []
       },
       "trackingType": "TIME_ONLY",

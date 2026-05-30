@@ -35,7 +35,7 @@ public class WorkoutLogController implements Subject {
 	}
 	public boolean addWorkoutLog(WorkoutLog newWorkoutLog) {
 		if (newWorkoutLog == null) {
-			System.err.println("Lỗi: Không thể lưu một log rỗng!");
+			System.err.println("Cannot save a null workout log.");
 			return false;
 		}
 		try {
@@ -48,7 +48,7 @@ public class WorkoutLogController implements Subject {
 			return isSaved;
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println("Failed to add workout log: " + e.getMessage());
 			return false;
 		}
 	}
@@ -64,7 +64,7 @@ public class WorkoutLogController implements Subject {
 				return saved;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println("Failed to remove workout log: " + e.getMessage());
 			return false;
 		}
 		return false;

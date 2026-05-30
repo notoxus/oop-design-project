@@ -28,10 +28,10 @@ public class AdminController {
 	        Exercise newExercise = ExerciseFactory.createExercise(id, name, category, trackingType, targetMuscle);
 	        exerciseLibrary.addExercise(newExercise);
 	        libraryDB.saveData(exerciseLibrary.getLib());
-	        System.out.println("Đã thêm bài tập: " + newExercise.getExerciseName() + " thành công!");
+	        System.out.println("Exercise added successfully: " + newExercise.getExerciseName());
 	        return true;
 	    } catch (IllegalStateException e) {
-	        System.out.println("Không thể tạo bài tập! Lỗi: " + e.getMessage());
+	        System.out.println("Failed to create exercise: " + e.getMessage());
 	        return false;
 	    }
 	}
@@ -41,10 +41,10 @@ public class AdminController {
 			exerciseLibrary.removeExercise(oldExercise);
 			exerciseLibrary.addExercise(updatedExercise);
 			libraryDB.saveData(exerciseLibrary.getLib());
-			System.out.println("Đã cập nhật bài tập: " + newName);
+			System.out.println("Exercise updated successfully: " + newName);
 			return true;
 		} catch (Exception e) {
-			System.out.println("Không thể cập nhật! Lỗi: " + e.getMessage());
+			System.out.println("Failed to update exercise: " + e.getMessage());
 			return false;
 		}
 	}
@@ -53,10 +53,13 @@ public class AdminController {
         Exercise target = exerciseLibrary.searchExercise(exerciseName);
         if (target != null) {
             exerciseLibrary.removeExercise(target);
-            System.out.println("Đã xóa bài tập: " + exerciseName);
-            return true;
+            boolean saved = libraryDB.saveData(exerciseLibrary.getLib());
+            if (saved) {
+                System.out.println("Exercise deleted successfully: " + exerciseName);
+            }
+            return saved;
         } else {
-            System.out.println("Không tìm thấy bài tập cần xóa!");
+            System.out.println("Exercise not found for deletion.");
             return false;
         }
     }

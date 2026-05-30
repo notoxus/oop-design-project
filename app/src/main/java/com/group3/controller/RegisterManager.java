@@ -13,16 +13,16 @@ public class RegisterManager {
     public boolean register(User newUser) {
         // Check username existed yet
         if (userDatabase.isUsernameExist(newUser.getUsername())) {
-            System.out.println("Lỗi: Tên đăng nhập '" + newUser.getUsername() + " đã tồn tại!");
+            System.out.println("Registration failed: username already exists: " + newUser.getUsername());
             return false;
         }
 
         // Save to users.json
         boolean success = userDatabase.addUser(newUser);
         if (success) {
-            System.out.println("Đăng ký thành công cho tài khoản: " + newUser.getUsername());
+            System.out.println("Registration successful: " + newUser.getUsername());
         } else {
-            System.out.println("Lỗi: Không thể lưu tài khoản!");
+            System.out.println("Registration failed: unable to save account.");
         }
         
         return success;

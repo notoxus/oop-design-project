@@ -48,7 +48,7 @@ public class DashboardUI extends JPanel {
 		exerciseUI = new ExerciseUI(workoutCtrl, workoutHandling, library, user, this);
 		cardPanel.add(new ExerciseLibraryUI(library, user, suggestionService, null, this), "LIBRARY");
 		cardPanel.add(new NutritionUI(nutritionCtrl, user), "NUTRITION");
-		cardPanel.add(new ManageLogUI(workoutCtrl, nutritionCtrl), "LOGS");
+		cardPanel.add(new ManageLogUI(workoutCtrl, nutritionCtrl, user), "LOGS");
 		cardPanel.add(new StatisticsUI(statPresenter, user, workoutHandling, workoutCtrl, nutritionCtrl), "STATS");
 		cardPanel.add(new ProfileUI(user, mainFrame), "PROFILE");
 		cardPanel.add(exerciseUI, "EXERCISE_INPUT");

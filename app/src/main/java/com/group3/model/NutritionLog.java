@@ -14,7 +14,7 @@ public class NutritionLog {
 	private final Double fat;
 	private final Double carbohydrates;
 
-	public NutritionLog(Builder builder) {
+	private NutritionLog(Builder builder) {
 		this.userID = builder.userID;
 		this.logID = builder.logID;
 		this.productID = builder.productID;

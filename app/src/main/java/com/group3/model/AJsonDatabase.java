@@ -25,10 +25,10 @@ public abstract class AJsonDatabase<T> implements DataConnection<T> {
             T data = gson.fromJson(reader, typeOfT);
             return data != null ? data : getDefaultValue();
         } catch (FileNotFoundException e) {
-            System.out.println("Không tìm thấy file " + filePath + ". Tiến hành tạo mới.");
+            System.out.println("File not found: " + filePath + ". Creating a default data set.");
             return getDefaultValue();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Failed to read JSON file " + filePath + ": " + e.getMessage());
             return getDefaultValue();
         }
     }
@@ -38,7 +38,7 @@ public abstract class AJsonDatabase<T> implements DataConnection<T> {
             gson.toJson(data, writer);
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Failed to write JSON file " + filePath + ": " + e.getMessage());
             return false;
         }
     }

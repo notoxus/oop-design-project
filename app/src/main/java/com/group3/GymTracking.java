@@ -33,7 +33,7 @@ public class GymTracking {
             FlatLightLaf.setup();
             UIManager.put("defaultFont", new Font("Arial", Font.PLAIN, 14));
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Failed to initialize look and feel: " + e.getMessage());
         }
         JsonUserDatabase userDB = new JsonUserDatabase();
         JsonAdminDatabase adminDB = new JsonAdminDatabase();

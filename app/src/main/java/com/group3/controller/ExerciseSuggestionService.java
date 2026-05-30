@@ -11,7 +11,6 @@ import com.group3.model.FitStrategy;
 import com.group3.model.ThinStrategy;
 
 public class ExerciseSuggestionService {
-	private ExerciseSuggestionStrategy suggestionStrategy;
 
 	// For new user
 	// Goal recommended rely on BMI index
@@ -29,26 +28,24 @@ public class ExerciseSuggestionService {
 	// Assignment operator with properly Strategy after user choice goal
 	public void applyUserChoice(User user, WorkoutGoal chosenGoal) {
 		user.setGoal(chosenGoal);
-		switch (chosenGoal) {
-		case MUSCLE_GAIN:
-			this.suggestionStrategy = new ThinStrategy();
-			break;
-		case LOSE_FAT:
-			this.suggestionStrategy = new FatStrategy();
-			break;
-		case MAINTENANCE:
-		default:
-			this.suggestionStrategy = new FitStrategy();
-			break;
-		}
 	}
 
 	// Logic for user choice
 	// If they didnt choose goal we set default as recommended goal
 	public List<Exercise> suggest(User user, ExerciseLibrary lib) {
-		if (this.suggestionStrategy == null) {
-			applyUserChoice(user, recommend(user));
+		WorkoutGoal goal = user.getGoal() != null ? user.getGoal() : recommend(user);
+		return createStrategy(goal).suggest(user, lib);
+	}
+
+	private ExerciseSuggestionStrategy createStrategy(WorkoutGoal goal) {
+		switch (goal) {
+		case MUSCLE_GAIN:
+			return new ThinStrategy();
+		case LOSE_FAT:
+			return new FatStrategy();
+		case MAINTENANCE:
+		default:
+			return new FitStrategy();
 		}
-		return this.suggestionStrategy.suggest(user, lib);
 	}
 }
