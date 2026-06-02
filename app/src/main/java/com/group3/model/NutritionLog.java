@@ -8,11 +8,12 @@ public class NutritionLog {
 	private final int productID;
 	private final String productName;
 	private final LocalDateTime addTime;
+	// Wrapper fields
 	private final Integer quantity;
 	private final Double energy;
 	private final Double protein;
 	private final Double fat;
-	private final Double carbohydrates;
+	private final Double carb;
 
 	private NutritionLog(Builder builder) {
 		this.userID = builder.userID;
@@ -24,7 +25,7 @@ public class NutritionLog {
 		this.energy = builder.energy;
 		this.protein = builder.protein;
 		this.fat = builder.fat;
-		this.carbohydrates = builder.carbohydrates;
+		this.carb = builder.carbohydrates;
 	}
 	
 	public int getUserID() {
@@ -64,7 +65,7 @@ public class NutritionLog {
 	}
 
 	public Double getCarbohydrates() {
-		return carbohydrates;
+		return carb;
 	}
 
 	public static class Builder {
@@ -147,7 +148,7 @@ public class NutritionLog {
         if (energy != null) sb.append("Calo: ").append(energy).append(" kcal\n");
         if (protein != null) sb.append("Protein: ").append(protein).append("g\n");
         if (fat != null) sb.append("Fat: ").append(fat).append("g\n");
-        if (carbohydrates != null) sb.append("Carb: ").append(carbohydrates).append("g\n");
+        if (carb != null) sb.append("Carb: ").append(carb).append("g\n");
         
         return sb.toString();
     }

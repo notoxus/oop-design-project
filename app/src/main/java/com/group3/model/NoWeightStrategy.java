@@ -24,7 +24,6 @@ public class NoWeightStrategy implements NextSetRecommendationStrategy {
 
         // Incase 3: Flexibility (Just time: Plank, Yoga, Stretching...)
         if (currentTime != null) {
-            // Khuyến khích giữ tư thế lâu hơn 1 phút (hoặc 10 giây tùy đơn vị time bạn quy định)
             Double nextTime = currentTime + 1.0; 
             return new RecommendationResult(null, null, null, nextTime, "Giữ tư thế lâu hơn một chút, tập trung vào nhịp thở và cảm nhận cơ thể.");
         }

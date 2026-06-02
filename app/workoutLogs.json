@@ -69,5 +69,41 @@
       "targetMuscle": "Toàn thân"
     },
     "time": 15.0
+  },
+  {
+    "userID": 1,
+    "logID": 3256,
+    "date": "2026-06-02T13:25:03.2681639",
+    "exercise": {
+      "exerciseID": 77585,
+      "exerciseName": "Chạy nước rút",
+      "category": {
+        "catID": 6,
+        "catName": "HIIT (Cường độ cao)",
+        "subCat": []
+      },
+      "trackingType": "DISTANCE_TIME",
+      "targetMuscle": "Tim mạch"
+    },
+    "distance": 10.0,
+    "time": 60.0
+  },
+  {
+    "userID": 1,
+    "logID": 27817,
+    "date": "2026-06-02T13:25:27.8171433",
+    "exercise": {
+      "exerciseID": 77585,
+      "exerciseName": "Chạy nước rút",
+      "category": {
+        "catID": 6,
+        "catName": "HIIT (Cường độ cao)",
+        "subCat": []
+      },
+      "trackingType": "DISTANCE_TIME",
+      "targetMuscle": "Tim mạch"
+    },
+    "distance": 10.5,
+    "time": 60.0
   }
 ]
