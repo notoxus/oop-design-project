@@ -225,7 +225,8 @@ public class AdminUI extends JPanel {
 		boolean hasLog = false;
 		if (logs != null) {
 			for (WorkoutLog log : logs) {
-				if (log.getUserID() != user.getUserID()) continue;
+				if (log.getUserID() != user.getUserID())
+					continue;
 				historyPanel.add(createWorkoutLogRow(log));
 				historyPanel.add(Box.createRigidArea(new Dimension(0, 6)));
 				hasLog = true;
@@ -246,9 +247,9 @@ public class AdminUI extends JPanel {
 	private JPanel createWorkoutLogRow(WorkoutLog log) {
 		JPanel row = new JPanel(new GridLayout(2, 1, 0, 2));
 		row.setBackground(new Color(250, 250, 250));
-		row.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(new Color(230, 230, 230), 1, true),
-				BorderFactory.createEmptyBorder(8, 10, 8, 10)));
+		row.setBorder(
+				BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(230, 230, 230), 1, true),
+						BorderFactory.createEmptyBorder(8, 10, 8, 10)));
 		row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 56));
 		row.setAlignmentX(Component.LEFT_ALIGNMENT);
 

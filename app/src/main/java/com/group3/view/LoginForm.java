@@ -80,13 +80,13 @@ public class LoginForm extends JPanel {
 
 		IAccount account = loginManager.login(username, password);
 		if (account instanceof Admin) {
-		    mainFrame.showAdminDashboard((Admin) account);
-		    
+			mainFrame.showAdminDashboard((Admin) account);
+
 		} else if (account instanceof User) {
-		    mainFrame.showUserDashboard((User) account);
-		    
+			mainFrame.showUserDashboard((User) account);
+
 		} else {
-		    JOptionPane.showMessageDialog(this, "Sai tài khoản hoặc mật khẩu!");
+			JOptionPane.showMessageDialog(this, "Sai tài khoản hoặc mật khẩu!");
 		}
 	}
 }

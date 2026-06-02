@@ -158,18 +158,12 @@ public class NutritionUI extends JPanel {
 				return;
 			}
 			NutritionLog selectedFood = currentListResults.get(selectedRow);
-            
-			NutritionLog logToSave = new NutritionLog.Builder()
-                    .setUserID(user.getUserID())
-                    .setlogID((int) (System.currentTimeMillis() % 1000000))
-					.setProductID(selectedFood.getProductID())
-                    .setProductName(selectedFood.getProductName())
-					.setQuantity(selectedFood.getQuantity())
-                    .setEnergy(selectedFood.getEnergy())
-					.setProtein(selectedFood.getProtein())
-                    .setFat(selectedFood.getFat())
-					.setCarbohydrates(selectedFood.getCarbohydrates())
-                    .build();
+
+			NutritionLog logToSave = new NutritionLog.Builder().setUserID(user.getUserID())
+					.setlogID((int) (System.currentTimeMillis() % 1000000)).setProductID(selectedFood.getProductID())
+					.setProductName(selectedFood.getProductName()).setQuantity(selectedFood.getQuantity())
+					.setEnergy(selectedFood.getEnergy()).setProtein(selectedFood.getProtein())
+					.setFat(selectedFood.getFat()).setCarbohydrates(selectedFood.getCarbohydrates()).build();
 
 			if (nutritionController.addNutritionLog(logToSave)) {
 				JOptionPane.showMessageDialog(this, "Đã thêm \"" + selectedFood.getProductName() + "\" vào nhật ký!",
@@ -204,10 +198,10 @@ public class NutritionUI extends JPanel {
 					if (currentListResults != null && !currentListResults.isEmpty()) {
 						for (NutritionLog log : currentListResults) {
 							tableModel.addRow(new Object[] { log.getProductName(),
-									log.getEnergy() != null ? log.getEnergy() : "0",
-									log.getProtein() != null ? log.getProtein() : "0",
-									log.getCarbohydrates() != null ? log.getCarbohydrates() : "0",
-									log.getFat() != null ? log.getFat() : "0", });
+									formatNutritionValue(log.getEnergy()),
+									formatNutritionValue(log.getProtein()),
+									formatNutritionValue(log.getCarbohydrates()),
+									formatNutritionValue(log.getFat()), });
 						}
 						btnAddFood.setEnabled(true);
 					} else {
@@ -221,5 +215,9 @@ public class NutritionUI extends JPanel {
 			}
 		};
 		worker.execute();
+	}
+
+	private String formatNutritionValue(Double value) {
+		return value != null ? String.valueOf(value) : "-";
 	}
 }

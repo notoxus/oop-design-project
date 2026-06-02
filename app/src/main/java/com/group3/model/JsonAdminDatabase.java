@@ -9,6 +9,11 @@ public class JsonAdminDatabase extends AJsonDatabase<List<Admin>> {
 	public JsonAdminDatabase() {
 		super("admin.json", new TypeToken<ArrayList<Admin>>() {}.getType());
 	}
+
+	JsonAdminDatabase(String filePath) {
+		super(filePath, new TypeToken<ArrayList<Admin>>() {}.getType());
+	}
+
 	// Extra method for LoginManager
 	public Admin checkLogin(String username, String password) {
 		List<Admin> admins = loadData();

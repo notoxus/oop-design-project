@@ -1,14 +1,22 @@
 package com.group3.model;
 
+import java.util.List;
+
 public class MuscleGainStrategy implements NextSetRecommendationStrategy {
 
 	@Override
-    public RecommendationResult calculateNextSet(WorkoutLog currentLog) {
+    public RecommendationResult calculateNextSet(WorkoutLog currentLog, List<WorkoutLog> weeklyLogs) {
         Double currentWeight = currentLog.getWeight(); 
         Integer currentReps = currentLog.getReps();
 
         if (currentWeight == null || currentReps == null) {
             return new RecommendationResult(null, null, null, null, "Lỗi: Bài tập này không dùng tạ!");
+        }
+
+        if (isHighWeeklyLoad(currentLog, weeklyLogs)) {
+            int recoveryReps = Math.max(8, Math.min(currentReps, 10));
+            return new RecommendationResult(currentWeight, recoveryReps, null, null,
+                    "Tuần này bạn đã tập khá nhiều. Giữ mức tạ hiện tại và tập vừa sức để tránh quá tải.");
         }
 
         double nextWeight = currentWeight;

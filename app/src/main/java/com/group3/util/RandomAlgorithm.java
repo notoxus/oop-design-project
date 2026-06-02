@@ -7,9 +7,10 @@ import java.util.List;
 import com.group3.model.Exercise;
 
 public final class RandomAlgorithm { // Avoiding create new object
-	
+
 	private RandomAlgorithm() {
 	}
+
 	// Create a random list for each Exercise Suggestion Strategy
 	// Avoiding invoke from others with static keyword
 	public static List<Exercise> pickRandom(List<Exercise> source, int count) {

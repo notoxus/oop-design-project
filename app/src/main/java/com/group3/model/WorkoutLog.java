@@ -13,7 +13,7 @@ public class WorkoutLog {
 	private final Integer reps;
 	private final Double distance;
 	private final Double time;
-	
+
 	private WorkoutLog(WorkoutLogBuilder builder) {
 		this.userID = builder.userID;
 		this.logID = builder.logID;
@@ -24,7 +24,7 @@ public class WorkoutLog {
 		this.distance = builder.distance;
 		this.time = builder.time;
 	}
-	
+
 	public int getUserID() {
 		return userID;
 	}
@@ -44,15 +44,19 @@ public class WorkoutLog {
 	public Double getWeight() {
 		return weight;
 	}
+
 	public Integer getReps() {
 		return reps;
 	}
+
 	public Double getDistance() {
 		return distance;
 	}
+
 	public Double getTime() {
 		return time;
 	}
+
 	public static class WorkoutLogBuilder {
 		private int userID;
 		private int logID = -1;
@@ -63,12 +67,12 @@ public class WorkoutLog {
 		private Integer reps = null;
 		private Double distance = null;
 		private Double time = null;
-		
+
 		public WorkoutLogBuilder setUserID(int userID) {
 			this.userID = userID;
 			return this;
 		}
-		
+
 		public WorkoutLogBuilder setLogID(int logID) {
 			this.logID = logID;
 			return this;
@@ -114,24 +118,28 @@ public class WorkoutLog {
 			return new WorkoutLog(this);
 		}
 	}
+
 	@Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        
-        DateTimeFormatter formatter = 
-        DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-            
-        sb.append("Bài tập: ").append(exercise.getExerciseName())
-          .append(" [").append(date.format(formatter)).append("]\n");
-        
-        if (weight != null) sb.append("Mức tạ: ").append(weight).append(" kg\n");
-        if (reps != null) sb.append("Số hiệp: ").append(reps).append("\n");
-        if (distance != null) sb.append("Quãng đường: ").append(distance).append(" km\n");
-        if (time != null) sb.append("Thời gian: ").append(time).append(" phút\n");
-        return sb.toString();
-    }
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+		sb.append("Bài tập: ").append(exercise.getExerciseName()).append(" [").append(date.format(formatter))
+				.append("]\n");
+
+		if (weight != null)
+			sb.append("Mức tạ: ").append(weight).append(" kg\n");
+		if (reps != null)
+			sb.append("Số hiệp: ").append(reps).append("\n");
+		if (distance != null)
+			sb.append("Quãng đường: ").append(distance).append(" km\n");
+		if (time != null)
+			sb.append("Thời gian: ").append(time).append(" phút\n");
+		return sb.toString();
+	}
 
 	public double paceCal() {
-		return this.time/this.distance;
+		return this.time / this.distance;
 	}
 }

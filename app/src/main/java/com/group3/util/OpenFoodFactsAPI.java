@@ -6,6 +6,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 
 public class OpenFoodFactsAPI {
 
@@ -13,8 +14,13 @@ public class OpenFoodFactsAPI {
 	private static final String SEARCH_OPTIONS = "&search_simple=1&action=process&json=1&page_size=5";
 	private static final String VI_LOCALE = "&cc=vn&lc=vi";
 	private static final String EN_LOCALE = "&cc=us&lc=en";
+	private static final HttpClient CLIENT = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(10)).build();
 
 	public String fetchNutritionData(String productName) {
+		if (productName == null || productName.isBlank()) {
+			return null;
+		}
+
 		try {
 			String encodedName = URLEncoder.encode(productName, StandardCharsets.UTF_8);
 			String vietnameseResponse = fetchByLocale(encodedName, VI_LOCALE);
@@ -33,10 +39,13 @@ public class OpenFoodFactsAPI {
 
 	private String fetchByLocale(String encodedName, String localeQuery) throws Exception {
 		String url = PREFIX_URL + encodedName + SEARCH_OPTIONS + localeQuery;
-		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
-				.header("User-Agent", "GymTrackingApp - Ver 1.0").GET().build();
-		HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+				.header("User-Agent", "GymTrackingApp - Ver 1.0").timeout(Duration.ofSeconds(15)).GET().build();
+		HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+		if (response.statusCode() < 200 || response.statusCode() >= 300) {
+			System.err.println("OpenFoodFacts returned HTTP status " + response.statusCode());
+			return null;
+		}
 		return response.body();
 	}
 

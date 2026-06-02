@@ -11,6 +11,10 @@ public class JsonUserDatabase extends AJsonDatabase<List<User>> {
         super("users.json", new TypeToken<ArrayList<User>>() {}.getType());
     }
 
+    JsonUserDatabase(String filePath) {
+        super(filePath, new TypeToken<ArrayList<User>>() {}.getType());
+    }
+
     @Override
     protected List<User> getDefaultValue() {
         return new ArrayList<>();

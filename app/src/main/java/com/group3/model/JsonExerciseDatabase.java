@@ -9,6 +9,10 @@ public class JsonExerciseDatabase extends AJsonDatabase<List<Exercise>> {
         super("exerciseLibrary.json", new TypeToken<ArrayList<Exercise>>() {}.getType());
     }
 
+    JsonExerciseDatabase(String filePath) {
+        super(filePath, new TypeToken<ArrayList<Exercise>>() {}.getType());
+    }
+
     @Override
     protected List<Exercise> getDefaultValue() {
         return new ArrayList<>();

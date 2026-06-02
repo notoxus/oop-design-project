@@ -45,7 +45,7 @@ public class DashboardUI extends JPanel {
 		cardLayout = new CardLayout();
 		cardPanel = new JPanel(cardLayout);
 
-		exerciseUI = new ExerciseUI(workoutCtrl, workoutHandling, library, user, this);
+		exerciseUI = new ExerciseUI(workoutCtrl, workoutHandling, user, this);
 		cardPanel.add(new ExerciseLibraryUI(library, user, suggestionService, null, this), "LIBRARY");
 		cardPanel.add(new NutritionUI(nutritionCtrl, user), "NUTRITION");
 		cardPanel.add(new ManageLogUI(workoutCtrl, nutritionCtrl, user), "LOGS");

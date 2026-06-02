@@ -1,5 +1,7 @@
 package com.group3.controller;
 
+import java.util.List;
+
 import com.group3.model.User;
 import com.group3.model.WorkoutLog;
 import com.group3.model.LoseFatStrategy;
@@ -10,23 +12,28 @@ import com.group3.model.RecommendationResult;
 
 public class WorkoutHandling {
 
+	private final NoWeightStrategy noWeightStrategy = new NoWeightStrategy();
 	private NextSetRecommendationStrategy nextSetStrategy;
 
 	public RecommendationResult calculateNextSet(WorkoutLog currentLog) {
+        return calculateNextSet(currentLog, List.of());
+    }
+
+	public RecommendationResult calculateNextSet(WorkoutLog currentLog, List<WorkoutLog> weeklyLogs) {
         if (this.nextSetStrategy == null) {
             throw new IllegalStateException("Chưa thiết lập chiến lược tập luyện (Strategy)!");
         }
         
         if (currentLog.getWeight() == null) {
-            return new NoWeightStrategy().calculateNextSet(currentLog);
+            return noWeightStrategy.calculateNextSet(currentLog, weeklyLogs);
         }
 
-        return this.nextSetStrategy.calculateNextSet(currentLog);
+        return this.nextSetStrategy.calculateNextSet(currentLog, weeklyLogs);
     }
 
 	public void setGoal(User user) {
 		if (user == null || user.getGoal() == null) {
-			this.nextSetStrategy = new NoWeightStrategy();
+			this.nextSetStrategy = noWeightStrategy;
 			return;
 		}
 
@@ -39,7 +46,7 @@ public class WorkoutHandling {
 			break;
 		case MAINTENANCE:
 		default:
-			this.nextSetStrategy = new NoWeightStrategy();
+			this.nextSetStrategy = noWeightStrategy;
 			break;
 		}
 	}

@@ -105,5 +105,23 @@
     },
     "distance": 10.5,
     "time": 60.0
+  },
+  {
+    "userID": 1,
+    "logID": 94102,
+    "date": "2026-06-02T20:58:14.1093278",
+    "exercise": {
+      "exerciseID": 77585,
+      "exerciseName": "Chạy nước rút",
+      "category": {
+        "catID": 6,
+        "catName": "HIIT (Cường độ cao)",
+        "subCat": []
+      },
+      "trackingType": "DISTANCE_TIME",
+      "targetMuscle": "Tim mạch"
+    },
+    "distance": 10.0,
+    "time": 75.0
   }
 ]

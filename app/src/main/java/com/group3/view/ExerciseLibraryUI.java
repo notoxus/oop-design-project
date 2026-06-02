@@ -116,7 +116,7 @@ public class ExerciseLibraryUI extends JPanel implements Observer {
 		filterValues = new String[rootCategories.size() + 1];
 		filterValues[0] = "TẤT CẢ";
 		for (int i = 0; i < rootCategories.size(); i++) {
-		    filterValues[i + 1] = rootCategories.get(i).getCatName().toUpperCase();
+			filterValues[i + 1] = rootCategories.get(i).getCatName().toUpperCase();
 		}
 		JPanel chipBar = new JPanel();
 		chipBar.setLayout(new BoxLayout(chipBar, BoxLayout.X_AXIS));
@@ -276,7 +276,7 @@ public class ExerciseLibraryUI extends JPanel implements Observer {
 			});
 		}
 	}
-	
+
 	private void renderCards() {
 		cardsContainer.removeAll();
 
@@ -309,7 +309,7 @@ public class ExerciseLibraryUI extends JPanel implements Observer {
 		}
 		return false;
 	}
-	
+
 	private void renderNormalMode() {
 		if (library.getLib() == null || library.getLib().isEmpty())
 			return;
@@ -317,7 +317,7 @@ public class ExerciseLibraryUI extends JPanel implements Observer {
 		cardsContainer.add(Box.createRigidArea(new Dimension(0, 8)));
 		for (Exercise ex : library.getLib()) {
 			if (isMatchFilter(ex, activeFilter)) {
-			    cardsContainer.add(createExerciseCard(ex));
+				cardsContainer.add(createExerciseCard(ex));
 				cardsContainer.add(Box.createRigidArea(new Dimension(0, 10)));
 			}
 		}
@@ -344,8 +344,7 @@ public class ExerciseLibraryUI extends JPanel implements Observer {
 		cardsContainer.add(lblMsg);
 		cardsContainer.add(Box.createRigidArea(new Dimension(0, 20)));
 
-		List<Exercise> filteredSuggestions = currentSuggestions.stream()
-				.filter(ex -> isMatchFilter(ex, activeFilter))
+		List<Exercise> filteredSuggestions = currentSuggestions.stream().filter(ex -> isMatchFilter(ex, activeFilter))
 				.collect(Collectors.toList());
 
 		if (filteredSuggestions.isEmpty()) {
@@ -607,6 +606,7 @@ public class ExerciseLibraryUI extends JPanel implements Observer {
 		dialog.add(btnPanel, BorderLayout.SOUTH);
 		dialog.setVisible(true);
 	}
+
 	private void showEditExerciseDialog(Exercise targetEx) {
 		JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Sửa Bài Tập", true);
 		dialog.setSize(420, 400);
@@ -674,8 +674,10 @@ public class ExerciseLibraryUI extends JPanel implements Observer {
 		JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
 		JButton btnCancel = new JButton("Hủy");
 		JButton btnSave = new JButton("Cập Nhật");
-		btnCancel.setBackground(PRIMARY); btnCancel.setForeground(Color.BLACK);
-		btnSave.setBackground(PRIMARY); btnSave.setForeground(Color.BLACK);
+		btnCancel.setBackground(PRIMARY);
+		btnCancel.setForeground(Color.BLACK);
+		btnSave.setBackground(PRIMARY);
+		btnSave.setForeground(Color.BLACK);
 
 		btnCancel.addActionListener(e -> dialog.dispose());
 		btnSave.addActionListener(e -> {

@@ -39,7 +39,6 @@ public class RecommendationResult {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-
 		if (suggestedWeight != null)
 			sb.append("Mức tạ: ").append(suggestedWeight).append(" kg\n");
 		if (suggestedReps != null)
@@ -48,10 +47,8 @@ public class RecommendationResult {
 			sb.append("Quãng đường: ").append(suggestedDistance).append(" km\n");
 		if (suggestedTime != null)
 			sb.append("Thời gian: ").append(suggestedTime).append(" phút\n");
-            
 		if (message != null && !message.isEmpty())
 			sb.append("💡 Thông điệp: ").append(message).append("\n");
-            
 		return sb.toString();
 	}
 }
