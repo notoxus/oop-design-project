@@ -1,25 +1,59 @@
-GYM TRACKING APP
+# Gym Tracking App
 
-**Theo dõi tiến trình tập luyện cho những người muốn thăng tiến sức mạnh hoặc muốn có 1 body cân đối.**
+Gym Tracking App là ứng dụng Android hỗ trợ người dùng theo dõi quá trình tập luyện và dinh dưỡng. Ứng dụng hướng đến người dùng muốn cải thiện sức khỏe, tăng cơ, giảm mỡ hoặc duy trì vóc dáng cân đối.
 
-Với 3 dạng bài tập sau: Isolate, Compound, Cardio. 
-- Cardio: Chạy bộ.
-- Isolate: Dumbbell Bicep Curl, Tricep Extension.
-- Compound: Pull Up, Barbell Squat, Barbell Bench Press.
+## Tính năng chính
 
-Các chức năng chính bao gồm:
-1. Dành cho Người dùng
-- Đăng nhập, đăng ký và xác thực đăng nhập.
-- Thêm và lưu các thông tin cá nhân cơ bản (tên, tuổi, giới tính, chiều cao, cân nặng).
-- Xem danh sách và chọn bài tập muốn tập trong thư viện bài tập. Hoặc để hệ thống đề xuất bài tập phù hợp với thể trạng.
-- Lưu log (nhật ký chi tiết) cho mỗi set tập theo ngày.
-- Theo dõi tiến độ: Xem thông tin, dữ liệu tiến trình của mỗi buổi tập (dựa trên mức tạ và số rep) để bám sát và thiết lập mục tiêu.
-- Đề xuất thông minh: Tự động đề xuất mức tạ / số rep cho các set tiếp theo để thăng tiến sức mạnh. Nếu chưa phù hợp, người dùng có thể tự nhập lại số tạ / số rep thực tế.
-- Quản lý lịch sử: Tra cứu, tìm kiếm, chỉnh sửa hoặc xóa nhật ký (logs) các buổi tập trước đó.
-- Theo dõi dinh dưỡng: Thêm các thành phần bữa ăn để theo dõi thói quen ăn uống khoa học.
-- Xem thống kê tổng quan: Có biểu đồ trực quan thống kê kèm theo để người dùng dễ theo dõi hơn.
-2. Dành cho Admin:
-- Quản lý thư viện: Thêm/Xóa bài tập trong hệ thống ứng dụng.
-- Xem chi tiết thông tin người dùng.
-3. Hệ thống:
-- Tính toán dữ liệu: Tốc độ chạy (Pace - m/kms), tính số Rep/mức tạ trung bình và trích xuất giá trị dinh dưỡng (Dựa trên thông tin dinh dưỡng và calories từ [Open Food Facts](https://openfoodfacts.org/)).
+### Người dùng
+
+- Đăng ký, đăng nhập và quản lý thông tin cá nhân.
+- Chọn mục tiêu tập luyện: giảm mỡ, tăng cơ hoặc duy trì.
+- Xem thư viện bài tập theo danh mục.
+- Nhận gợi ý bài tập phù hợp với BMI và mục tiêu tập luyện.
+- Ghi lại nhật ký tập luyện theo từng set.
+- Nhận gợi ý set tập tiếp theo dựa trên log gần nhất và lịch sử tập luyện.
+- Tra cứu thông tin dinh dưỡng sản phẩm.
+- Lưu nhật ký dinh dưỡng.
+- Xem thống kê tổng quan về tập luyện và dinh dưỡng.
+- Quản lý lịch sử workout log và nutrition log.
+- Xem hồ sơ cá nhân và đăng xuất.
+
+### Admin
+
+- Xem danh sách người dùng.
+- Xem chi tiết thông tin và lịch sử tập luyện của từng người dùng.
+- Quản lý thư viện bài tập: thêm, sửa, xóa bài tập.
+
+## Requirements
+
+- Java Development Kit 21.
+- Gradle hoặc Gradle Wrapper có sẵn trong project.
+- Eclipse IDE hoặc IDE hỗ trợ Java/Gradle.
+- Kết nối Internet để tra cứu dữ liệu dinh dưỡng.
+
+## Thư viện sử dụng
+
+- Gson: đọc và ghi dữ liệu JSON.
+- JFreeChart: hiển thị biểu đồ thống kê.
+- FlatLaf: cải thiện giao diện trong bản demo.
+- JUnit 5: viết và chạy unit test.
+
+## Cách chạy
+
+Chạy chương trình:
+
+```powershell
+.\gradlew.bat run
+```
+
+Chạy test:
+
+```powershell
+.\gradlew.bat test
+```
+
+Build project:
+
+```powershell
+.\gradlew.bat build
+```

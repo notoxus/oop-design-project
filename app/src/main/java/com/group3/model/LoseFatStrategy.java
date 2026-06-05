@@ -13,24 +13,33 @@ public class LoseFatStrategy implements NextSetRecommendationStrategy {
             return new RecommendationResult(null, null, null, null, "Lỗi: Bài tập này không dùng tạ!");
         }
 
-        if (isHighWeeklyLoad(currentLog, weeklyLogs)) {
-            int recoveryReps = Math.max(12, Math.min(currentReps, 15));
-            return new RecommendationResult(currentWeight, recoveryReps, null, null,
-                    "Tuần này cường độ tập đã cao. Giữ mức tạ và reps vừa phải để duy trì sức bền.");
-        }
-
+        boolean highWeeklyLoad = isHighWeeklyLoad(currentLog, weeklyLogs);
         double nextWeight = currentWeight;
         int nextReps = 15;
         String msg = "Tuyệt vời, giữ vững mức tạ và hoàn thành 15 reps để đốt tối đa calo!";
 
         if (currentReps >= 20) { // Too light
-            nextWeight = currentWeight + 2.5;
+            nextWeight = highWeeklyLoad ? currentWeight : currentWeight + 2.5;
             nextReps = 15;
-            msg = "Bài này đã quá dễ, thêm chút tạ để kích thích tim mạch làm việc mạnh hơn.";
+            msg = highWeeklyLoad
+                    ? "Giữ mức tạ hiện tại và hoàn thành 15 reps thật đều để duy trì nhịp tập."
+                    : "Bài này đã quá dễ, thêm chút tạ để kích thích tim mạch làm việc mạnh hơn.";
         } else if (currentReps < 12) { // Exhaustic
             nextWeight = Math.max(0, currentWeight - 2.5);
             nextReps = 15;
             msg = "Mục tiêu là sức bền! Hãy giảm tạ xuống để đẩy được nhiều reps hơn.";
+        } else if (highWeeklyLoad) {
+            if (currentReps <= 12) {
+                nextWeight = Math.max(0, currentWeight - 2.5);
+                nextReps = 15;
+                msg = "Giảm nhẹ mức tạ và đưa reps về 15 để duy trì nhịp tập ổn định hơn.";
+            } else {
+                nextReps = currentReps - 1;
+                msg = "Giữ mức tạ hiện tại và giảm 1 rep để nhịp tập ổn định hơn.";
+            }
+        } else {
+            nextReps = currentReps + 1;
+            msg = "Giữ mức tạ hiện tại và thử tăng thêm 1 rep để cải thiện sức bền.";
         }
 
         return new RecommendationResult(nextWeight, nextReps, null, null, msg);

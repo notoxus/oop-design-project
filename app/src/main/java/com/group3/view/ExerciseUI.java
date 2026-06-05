@@ -324,7 +324,7 @@ public class ExerciseUI extends JPanel {
 			return;
 		}
 
-		RecommendationResult rec = handling.calculateNextSet(lastLog, getWeeklyLogsForCurrentUser(lastLog, logs));
+		RecommendationResult rec = handling.calculateNextSet(lastLog, getRecommendationLogsForCurrentUser(lastLog, logs));
 
 		txtWeight.setHint(rec.getSuggestedWeight() != null ? String.valueOf(rec.getSuggestedWeight()) : "");
 		txtReps.setHint(rec.getSuggestedReps() != null ? String.valueOf(rec.getSuggestedReps()) : "");
@@ -340,26 +340,30 @@ public class ExerciseUI extends JPanel {
 		if (logs == null || logs.isEmpty())
 			return null;
 
-		for (int i = logs.size() - 1; i >= 0; i--) {
+		WorkoutLog latestLog = null;
+		for (int i = 0; i < logs.size(); i++) {
 			WorkoutLog log = logs.get(i);
+			if (log == null || log.getExercise() == null || log.getDate() == null) {
+				continue;
+			}
 			if (log.getUserID() == user.getUserID()
-					&& log.getExercise().getExerciseID() == currentExercise.getExerciseID()) {
-				return log;
+					&& log.getExercise().getExerciseID() == currentExercise.getExerciseID()
+					&& (latestLog == null || log.getDate().isAfter(latestLog.getDate()))) {
+				latestLog = log;
 			}
 		}
-		return null;
+		return latestLog;
 	}
 
-	private List<WorkoutLog> getWeeklyLogsForCurrentUser(WorkoutLog referenceLog, List<WorkoutLog> logs) {
-		if (logs == null || logs.isEmpty() || referenceLog == null) {
+	private List<WorkoutLog> getRecommendationLogsForCurrentUser(WorkoutLog referenceLog, List<WorkoutLog> logs) {
+		if (logs == null || logs.isEmpty() || referenceLog == null || referenceLog.getDate() == null) {
 			return List.of();
 		}
 
-		LocalDateTime end = referenceLog.getDate();
-		LocalDateTime start = end.minusDays(7);
 		return logs.stream()
+				.filter(log -> log != null && log.getDate() != null)
 				.filter(log -> log.getUserID() == user.getUserID())
-				.filter(log -> !log.getDate().isBefore(start) && !log.getDate().isAfter(end))
+				.filter(log -> !log.getDate().isAfter(referenceLog.getDate()))
 				.toList();
 	}
 

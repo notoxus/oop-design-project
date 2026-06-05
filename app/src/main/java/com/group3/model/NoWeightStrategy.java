@@ -13,34 +13,31 @@ public class NoWeightStrategy implements NextSetRecommendationStrategy {
 
         // Case 1: Bodyweight without weight
         if (currentReps != null) {
-            if (highWeeklyLoad) {
-                return new RecommendationResult(null, currentReps, null, null,
-                        "Tuần này bạn đã vận động khá nhiều. Giữ reps hiện tại để cơ thể phục hồi tốt hơn.");
-            }
-            int nextReps = currentReps + 2; 
-            return new RecommendationResult(null, nextReps, null, null, "Cố gắng vượt qua giới hạn thêm 2 reps nhé!");
+            int nextReps = currentReps + (highWeeklyLoad ? 1 : 2);
+            String msg = highWeeklyLoad
+                    ? "Tăng nhẹ thêm 1 rep và giữ form ổn định cho set tiếp theo."
+                    : "Cố gắng vượt qua giới hạn thêm 2 reps nhé!";
+            return new RecommendationResult(null, nextReps, null, null, msg);
         }
         
         // Case 2: Cardio
         if (currentDistance != null) {
-            if (highWeeklyLoad) {
-                return new RecommendationResult(null, null, currentDistance, currentTime,
-                        "Tuần này tải tập đã cao. Giữ quãng đường hiện tại và ưu tiên nhịp độ ổn định.");
-            }
-            Double nextDistance = currentDistance + 0.5; 
+            Double nextDistance = currentDistance + (highWeeklyLoad ? 0.25 : 0.5);
             Double nextTime = (currentTime != null) ? currentTime : null; 
+            String msg = highWeeklyLoad
+                    ? "Tăng nhẹ thêm 250m và ưu tiên nhịp độ ổn định."
+                    : "Thử thách tăng thêm 500m để nâng cao sức bền tim mạch!";
             
-            return new RecommendationResult(null, null, nextDistance, nextTime, "Thử thách tăng thêm 500m để nâng cao sức bền tim mạch!");
+            return new RecommendationResult(null, null, nextDistance, nextTime, msg);
         }
 
         // Case 3: Flexibility (just time: Plank, Yoga, Stretching...)
         if (currentTime != null) {
-            if (highWeeklyLoad) {
-                return new RecommendationResult(null, null, null, currentTime,
-                        "Tuần này cơ thể đã hoạt động nhiều. Giữ thời gian hiện tại và tập trung vào phục hồi.");
-            }
-            Double nextTime = currentTime + 1.0; 
-            return new RecommendationResult(null, null, null, nextTime, "Giữ tư thế lâu hơn một chút, tập trung vào nhịp thở và cảm nhận cơ thể.");
+            Double nextTime = currentTime + (highWeeklyLoad ? 0.5 : 1.0);
+            String msg = highWeeklyLoad
+                    ? "Tăng nhẹ thêm 30 giây và tập trung vào nhịp thở ổn định."
+                    : "Giữ tư thế lâu hơn một chút, tập trung vào nhịp thở và cảm nhận cơ thể.";
+            return new RecommendationResult(null, null, null, nextTime, msg);
         }
 
         return new RecommendationResult(null, null, null, null, "Không đủ dữ liệu để gợi ý.");

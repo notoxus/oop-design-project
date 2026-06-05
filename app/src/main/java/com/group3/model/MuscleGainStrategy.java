@@ -13,24 +13,33 @@ public class MuscleGainStrategy implements NextSetRecommendationStrategy {
             return new RecommendationResult(null, null, null, null, "Lỗi: Bài tập này không dùng tạ!");
         }
 
-        if (isHighWeeklyLoad(currentLog, weeklyLogs)) {
-            int recoveryReps = Math.max(8, Math.min(currentReps, 10));
-            return new RecommendationResult(currentWeight, recoveryReps, null, null,
-                    "Tuần này bạn đã tập khá nhiều. Giữ mức tạ hiện tại và tập vừa sức để tránh quá tải.");
-        }
-
+        boolean highWeeklyLoad = isHighWeeklyLoad(currentLog, weeklyLogs);
         double nextWeight = currentWeight;
         int nextReps = 10;
         String msg = "Giữ nguyên mức tạ, tập trung cảm nhận cơ bắp!";
 
         if (currentReps >= 12) { // Too light
-            nextWeight = currentWeight + 2.5;
-            nextReps = 8;
-            msg = "Bạn chỉ được đến đó thôi sao. Hãy tăng thêm 2.5kg và giảm số reps xuống 8 đi nào.";
+            nextWeight = highWeeklyLoad ? currentWeight : currentWeight + 2.5;
+            nextReps = highWeeklyLoad ? 10 : 8;
+            msg = highWeeklyLoad
+                    ? "Giữ mức tạ hiện tại và giảm số reps xuống 10 để set tiếp theo vẫn kiểm soát tốt."
+                    : "Bạn chỉ được đến đó thôi sao. Hãy tăng thêm 2.5kg và giảm số reps xuống 8 đi nào.";
         } else if (currentReps < 8) { // Exhaustic
             nextWeight = Math.max(0, currentWeight - 2.5);
             nextReps = 10;
             msg = "Cố quá là quá cố đấy bạn eyy, hãy giảm tạ một chút và đảm bảo đã tập chuẩn form.";
+        } else if (highWeeklyLoad) {
+            if (currentReps <= 8) {
+                nextWeight = Math.max(0, currentWeight - 2.5);
+                nextReps = 10;
+                msg = "Giảm nhẹ mức tạ và đưa reps về 10 để set tiếp theo ổn định hơn.";
+            } else {
+                nextReps = currentReps - 1;
+                msg = "Giữ nguyên mức tạ và giảm 1 rep để kiểm soát form tốt hơn.";
+            }
+        } else {
+            nextReps = currentReps + 1;
+            msg = "Giữ nguyên mức tạ và thử tăng thêm 1 rep cho set tiếp theo.";
         }
 
         return new RecommendationResult(nextWeight, nextReps, null, null, msg);
