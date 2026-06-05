@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "userID": 1,
+    "logID": 903139,
+    "productID": 689,
+    "productName": "Cocacola original  500",
+    "addTime": "2026-06-05T17:21:43.1396204",
+    "quantity": 1,
+    "energy": 42.0,
+    "protein": 0.0,
+    "fat": 0.0,
+    "carb": 10.6
+  }
+]

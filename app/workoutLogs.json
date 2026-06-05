@@ -123,5 +123,167 @@
     },
     "distance": 10.0,
     "time": 75.0
+  },
+  {
+    "userID": 1,
+    "logID": 78889,
+    "date": "2026-06-05T17:19:38.8963202",
+    "exercise": {
+      "exerciseID": 77585,
+      "exerciseName": "Chạy nước rút",
+      "category": {
+        "catID": 6,
+        "catName": "HIIT (Cường độ cao)",
+        "subCat": []
+      },
+      "trackingType": "DISTANCE_TIME",
+      "targetMuscle": "Tim mạch"
+    },
+    "distance": 10.0,
+    "time": 60.0
+  },
+  {
+    "userID": 1,
+    "logID": 89052,
+    "date": "2026-06-05T17:19:49.0522688",
+    "exercise": {
+      "exerciseID": 77585,
+      "exerciseName": "Chạy nước rút",
+      "category": {
+        "catID": 6,
+        "catName": "HIIT (Cường độ cao)",
+        "subCat": []
+      },
+      "trackingType": "DISTANCE_TIME",
+      "targetMuscle": "Tim mạch"
+    },
+    "distance": 10.0,
+    "time": 60.0
+  },
+  {
+    "userID": 1,
+    "logID": 1007,
+    "date": "2026-06-05T17:20:01.0070536",
+    "exercise": {
+      "exerciseID": 77585,
+      "exerciseName": "Chạy nước rút",
+      "category": {
+        "catID": 6,
+        "catName": "HIIT (Cường độ cao)",
+        "subCat": []
+      },
+      "trackingType": "DISTANCE_TIME",
+      "targetMuscle": "Tim mạch"
+    },
+    "distance": 7.0,
+    "time": 45.0
+  },
+  {
+    "userID": 1,
+    "logID": 19749,
+    "date": "2026-06-05T17:20:19.7499347",
+    "exercise": {
+      "exerciseID": 77585,
+      "exerciseName": "Chạy nước rút",
+      "category": {
+        "catID": 6,
+        "catName": "HIIT (Cường độ cao)",
+        "subCat": []
+      },
+      "trackingType": "DISTANCE_TIME",
+      "targetMuscle": "Tim mạch"
+    },
+    "distance": 10.0,
+    "time": 63.0
+  },
+  {
+    "userID": 1,
+    "logID": 26531,
+    "date": "2026-06-05T17:20:26.5314676",
+    "exercise": {
+      "exerciseID": 77585,
+      "exerciseName": "Chạy nước rút",
+      "category": {
+        "catID": 6,
+        "catName": "HIIT (Cường độ cao)",
+        "subCat": []
+      },
+      "trackingType": "DISTANCE_TIME",
+      "targetMuscle": "Tim mạch"
+    },
+    "distance": 7.0,
+    "time": 50.0
+  },
+  {
+    "userID": 1,
+    "logID": 33895,
+    "date": "2026-06-05T17:20:33.895608",
+    "exercise": {
+      "exerciseID": 77585,
+      "exerciseName": "Chạy nước rút",
+      "category": {
+        "catID": 6,
+        "catName": "HIIT (Cường độ cao)",
+        "subCat": []
+      },
+      "trackingType": "DISTANCE_TIME",
+      "targetMuscle": "Tim mạch"
+    },
+    "distance": 15.0,
+    "time": 120.0
+  },
+  {
+    "userID": 1,
+    "logID": 46699,
+    "date": "2026-06-05T17:20:46.6998277",
+    "exercise": {
+      "exerciseID": 77585,
+      "exerciseName": "Chạy nước rút",
+      "category": {
+        "catID": 6,
+        "catName": "HIIT (Cường độ cao)",
+        "subCat": []
+      },
+      "trackingType": "DISTANCE_TIME",
+      "targetMuscle": "Tim mạch"
+    },
+    "distance": 5.0,
+    "time": 20.0
+  },
+  {
+    "userID": 1,
+    "logID": 57866,
+    "date": "2026-06-05T17:20:57.8665178",
+    "exercise": {
+      "exerciseID": 77585,
+      "exerciseName": "Chạy nước rút",
+      "category": {
+        "catID": 6,
+        "catName": "HIIT (Cường độ cao)",
+        "subCat": []
+      },
+      "trackingType": "DISTANCE_TIME",
+      "targetMuscle": "Tim mạch"
+    },
+    "distance": 10.0,
+    "time": 55.0
+  },
+  {
+    "userID": 1,
+    "logID": 61234,
+    "date": "2026-06-05T17:21:01.2342045",
+    "exercise": {
+      "exerciseID": 77585,
+      "exerciseName": "Chạy nước rút",
+      "category": {
+        "catID": 6,
+        "catName": "HIIT (Cường độ cao)",
+        "subCat": []
+      },
+      "trackingType": "DISTANCE_TIME",
+      "targetMuscle": "Tim mạch"
+    },
+    "distance": 10.0,
+    "time": 55.0
   }
 ]
