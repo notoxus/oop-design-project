@@ -223,7 +223,7 @@ The workout logging screen lets users enter set data based on the selected exerc
 
 ### Interface
 
-The log management screen lets users view and delete saved workout logs or nutrition logs.
+The log management screen lets users view saved workout logs and nutrition logs, switch between log types, and delete a selected log after confirmation.
 
 ### UI Object Description
 
@@ -238,6 +238,7 @@ The log management screen lets users view and delete saved workout logs or nutri
 | 7 | `btnDeleteWorkoutLog` | Button | Requires selected log | Delete workout log |
 | 8 | `btnDeleteNutritionLog` | Button | Requires selected log | Delete nutrition log |
 | 9 | `confirmDialog` | Dialog | | Confirm deletion |
+| 10 | `emptyTableState` | Table state | ReadOnly | Display an empty list when the user has no logs |
 
 ### Event List and Handling
 
@@ -249,8 +250,12 @@ The log management screen lets users view and delete saved workout logs or nutri
 | 4 | `loadNutritionData` | Load logs from `NutritionLogController.getAllLogs()` and filter by current user |
 | 5 | `btnDeleteWorkoutLog_Click` | Ask for confirmation and call `WorkoutLogController.removeWorkoutLog(logID)` |
 | 6 | `btnDeleteNutritionLog_Click` | Ask for confirmation and call `NutritionLogController.removeNutritionLog(logID)` |
-| 7 | `deleteLog_Success` | Save data and call `notifyObservers()` after deletion |
-| 8 | `observer_Update` | Reload the list when `ManageLogUI.update()` is called |
+| 7 | `deleteLog_NoSelection` | Show a message asking the user to select a log before deletion |
+| 8 | `deleteLog_Cancel` | Close the confirmation dialog and keep the data unchanged |
+| 9 | `deleteLog_Success` | Save data, call `notifyObservers()`, and refresh the displayed list |
+| 10 | `deleteLog_Failed` | Show an error message and keep the current list unchanged |
+| 11 | `noLog_State` | Display an empty table when the current user has no logs |
+| 12 | `observer_Update` | Reload workout and nutrition lists when `ManageLogUI.update()` is called |
 
 ## Statistics Overview Screen
 
