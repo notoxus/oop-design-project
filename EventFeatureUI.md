@@ -7,7 +7,7 @@
 | 1 | `MainFrame` | Main window that manages navigation between panels |
 | 2 | `DashboardUI` | User home screen |
 | 3 | `AdminUI` | Admin screen |
-| 4 | `ExerciseLibraryUI` | Exercise library screen |
+| 4 | `ExerciseLibraryUI` | Reusable exercise library panel embedded in the user and admin screens |
 | 5 | `ExerciseUI` | Workout logging screen |
 | 6 | `LoginForm` | Login screen |
 | 7 | `RegisterForm` | Registration screen |
@@ -78,39 +78,39 @@ The registration screen allows a new user to create an account by entering perso
 
 ### Interface
 
-The user home screen is the main navigation area after login. It contains access to the exercise library, nutrition lookup, log management, statistics, and profile screens.
+The user home screen opens with the exercise library. It allows users to filter exercises, view suggested exercises, select an exercise for logging, and navigate to nutrition, logs, statistics, or profile screens.
 
 ### UI Object Description
 
 | No. | Name | Type | Constraint | Purpose |
 |---|---|---|---|---|
-| 1 | `mainFrame` | MainFrame | NOT NULL | Manage screen navigation |
-| 2 | `cardPanel` | JPanel/CardLayout | NOT NULL | Hold feature panels |
-| 3 | `btnLibrary` | Button/Navigation | | Open the exercise library |
-| 4 | `btnNutrition` | Button/Navigation | | Open nutrition lookup |
-| 5 | `btnLogs` | Button/Navigation | | Open log management |
-| 6 | `btnStats` | Button/Navigation | | Open statistics overview |
-| 7 | `btnProfile` | Button/Navigation | | Open the user profile |
-| 8 | `libraryUI` | Panel | | Display the exercise library |
-| 9 | `exerciseUI` | Panel | | Display the workout logging form |
+| 1 | `filterButtons` | ToggleButton/Chip | | Filter exercises by category |
+| 2 | `btnSuggest` | Button | | Enable or disable suggested exercises |
+| 3 | `cardsContainer` | Panel/List | ReadOnly | Display exercise cards |
+| 4 | `exerciseCard` | Card/Panel | | Display exercise name, target muscle, and tracking type |
+| 5 | `btnNutrition` | Button/Navigation | | Navigate to nutrition lookup |
+| 6 | `btnLogs` | Button/Navigation | | Navigate to log management |
+| 7 | `btnStats` | Button/Navigation | | Navigate to statistics overview |
+| 8 | `btnProfile` | Button/Navigation | | Navigate to the user profile |
 
 ### Event List and Handling
 
 | No. | Event | Handling |
 |---|---|---|
-| 1 | `btnLibrary_Click` | Call `switchTo("LIBRARY", btnLibrary)` to display `ExerciseLibraryUI` |
-| 2 | `btnNutrition_Click` | Call `switchTo("NUTRITION", btnNutrition)` to display `NutritionUI` |
-| 3 | `btnLogs_Click` | Call `switchTo("LOGS", btnLogs)` to display `ManageLogUI` |
-| 4 | `btnStats_Click` | Call `switchTo("STATS", btnStats)` to display `StatisticsUI` |
-| 5 | `btnProfile_Click` | Call `switchTo("PROFILE", btnProfile)` to display `ProfileUI` |
-| 6 | `navigateToExerciseInput` | Receive the selected exercise, call `ExerciseUI.setSelectedExercise(ex)`, and move to the workout logging screen |
-| 7 | `showLibrary` | Return to the exercise library screen |
+| 1 | `filterButton_Click` | Update the active category and re-render the exercise list |
+| 2 | `btnSuggest_Click` | Call `ExerciseSuggestionService.suggest(user, library)` to get suggested exercises |
+| 3 | `exerciseCard_Click` | Move to the workout logging screen with the selected exercise |
+| 4 | `btnNutrition_Click` | Call `switchTo("NUTRITION", btnNutrition)` to display `NutritionUI` |
+| 5 | `btnLogs_Click` | Call `switchTo("LOGS", btnLogs)` to display `ManageLogUI` |
+| 6 | `btnStats_Click` | Call `switchTo("STATS", btnStats)` to display `StatisticsUI` |
+| 7 | `btnProfile_Click` | Call `switchTo("PROFILE", btnProfile)` to display `ProfileUI` |
+| 8 | `library_Update` | Refresh the exercise list when `ExerciseLibrary.notifyObservers()` is called |
 
 ## Exercise Library Screen
 
 ### Interface
 
-The exercise library screen displays exercises by category and lets users choose an exercise for logging. For admins, it also supports adding, updating, and deleting exercises.
+The exercise library panel is a reusable component. It is embedded in the user home screen for browsing/selecting exercises and in the admin screen for exercise management.
 
 ### UI Object Description
 
@@ -120,16 +120,9 @@ The exercise library screen displays exercises by category and lets users choose
 | 2 | `btnSuggest` | Button | | Enable or disable suggested exercises |
 | 3 | `cardsContainer` | Panel/List | ReadOnly | Display exercise cards |
 | 4 | `exerciseCard` | Card/Panel | | Display exercise name, target muscle, and icon |
-| 5 | `btnAddExercise` | Button | Admin only | Open the add-exercise dialog |
-| 6 | `btnEditExercise` | Button | Admin only | Open the edit-exercise dialog |
-| 7 | `btnDeleteExercise` | Button | Admin only | Delete an exercise |
-| 8 | `txtName` | TextField | NOT NULL | Enter exercise name in the dialog |
-| 9 | `txtMuscle` | TextField | NULL | Enter target muscle |
-| 10 | `cbParentCategory` | ComboBox | NOT NULL | Select parent category |
-| 11 | `cbSubCategory` | ComboBox | NOT NULL | Select subcategory |
-| 12 | `cbTracking` | ComboBox | NOT NULL | Select tracking type |
-| 13 | `btnSave` | Button | | Save added or updated exercise |
-| 14 | `btnCancel` | Button | | Close the add/edit dialog |
+| 5 | `currentAccount` | IAccount | NOT NULL | Determine whether the panel is rendered for a user or an admin |
+| 6 | `dashboardUI` | DashboardUI | NULL for admin | Navigate user selection to workout logging |
+| 7 | `adminController` | AdminController | NULL for user | Handle admin exercise management actions |
 
 ### Event List and Handling
 
@@ -137,15 +130,10 @@ The exercise library screen displays exercises by category and lets users choose
 |---|---|---|
 | 1 | `filterButton_Click` | Update `activeFilter` and re-render the exercise list |
 | 2 | `btnSuggest_Click` | Call `ExerciseSuggestionService.suggest(user, library)` to get suggested exercises |
-| 3 | `exerciseCard_Click` | For normal users, open the workout logging screen for the selected exercise |
-| 4 | `btnAddExercise_Click` | For admins, open the add-exercise dialog |
-| 5 | `cbParentCategory_Change` | Refresh the matching subcategory list |
-| 6 | `cbSubCategory_Change` | Refresh the valid tracking type list |
-| 7 | `btnSaveAdd_Click` | Validate input and call `AdminController.addExercise()` |
-| 8 | `btnEditExercise_Click` | Open the edit dialog for the selected exercise |
-| 9 | `btnSaveEdit_Click` | Validate input and call `AdminController.updateExercise()` |
-| 10 | `btnDeleteExercise_Click` | Ask for confirmation and call `AdminController.deleteExercise(exerciseName)` |
-| 11 | `library_Update` | Refresh the UI after `ExerciseLibrary.notifyObservers()` |
+| 3 | `exerciseCard_Click` | For users, call `DashboardUI.navigateToExerciseInput(ex)` |
+| 4 | `renderForUser` | Show suggestion and selection controls for normal users |
+| 5 | `renderForAdmin` | Show admin management controls when the current account is an admin |
+| 6 | `library_Update` | Refresh the panel after `ExerciseLibrary.notifyObservers()` |
 
 ## Admin Screen
 
@@ -166,6 +154,16 @@ The admin screen lets administrators switch between exercise library management 
 | 7 | `userCard` | Card/Panel | | Display a user summary |
 | 8 | `userDetailPanel` | Panel | ReadOnly | Display selected user details |
 | 9 | `btnBack` | Button | | Return to the user list |
+| 10 | `btnAddExercise` | Button | Admin only | Open the add-exercise dialog |
+| 11 | `btnEditExercise` | Button | Admin only | Open the edit-exercise dialog |
+| 12 | `btnDeleteExercise` | Button | Admin only | Delete an exercise |
+| 13 | `txtName` | TextField | NOT NULL | Enter exercise name in the dialog |
+| 14 | `txtMuscle` | TextField | NULL | Enter target muscle |
+| 15 | `cbParentCategory` | ComboBox | NOT NULL | Select parent category |
+| 16 | `cbSubCategory` | ComboBox | NOT NULL | Select subcategory |
+| 17 | `cbTracking` | ComboBox | NOT NULL | Select tracking type |
+| 18 | `btnSave` | Button | | Save added or updated exercise |
+| 19 | `btnCancel` | Button | | Close the add/edit dialog |
 
 ### Event List and Handling
 
@@ -177,6 +175,14 @@ The admin screen lets administrators switch between exercise library management 
 | 4 | `btnBack_Click` | Return to the user list |
 | 5 | `btnLogout_Click` | Ask for confirmation, then call `MainFrame.showLoginScreen()` |
 | 6 | `refreshUserListPanel` | Call `AdminController.viewUserDetails()` |
+| 7 | `btnAddExercise_Click` | Open the add-exercise dialog |
+| 8 | `cbParentCategory_Change` | Refresh the matching subcategory list |
+| 9 | `cbSubCategory_Change` | Refresh the valid tracking type list |
+| 10 | `btnSaveAdd_Click` | Validate input and call `AdminController.addExercise()` |
+| 11 | `btnEditExercise_Click` | Open the edit dialog for the selected exercise |
+| 12 | `btnSaveEdit_Click` | Validate input and call `AdminController.updateExercise()` |
+| 13 | `btnDeleteExercise_Click` | Ask for confirmation and call `AdminController.deleteExercise(exerciseName)` |
+| 14 | `library_Update` | Refresh the admin library panel after `ExerciseLibrary.notifyObservers()` |
 
 ## Workout Logging Screen
 
