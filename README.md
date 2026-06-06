@@ -34,8 +34,9 @@ Gym Tracking App is an Android application concept for tracking workouts, nutrit
 ## Libraries
 
 - Gson: read and write JSON data.
-- JFreeChart: render statistics charts.
-- FlatLaf: UI look-and-feel support.
+- OpenFoodFacts API: serving for look up nutrition product.
+- JFreeChart: render statistics charts (For Swing UI demo).
+- FlatLaf: UI look-and-feel support (For Swing UI demo).
 - JUnit 5: write and run unit tests.
 
 ## Commands
