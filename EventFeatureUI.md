@@ -1,336 +1,336 @@
-# Mô tả giao diện và sự kiện theo màn hình
+# UI Screens and Event Handling
 
-## Danh sách các màn hình
+### Screen List
 
-| STT | Màn hình | Mô tả |
+| No. | Screen | Description |
 |---|---|---|
-| 1 | `MainFrame` | Màn hình chính, quản lý việc chuyển đổi giữa các panel |
-| 2 | `DashboardUI` | Trang chủ của người dùng |
-| 3 | `AdminUI` | Trang quản trị dành cho admin |
-| 4 | `ExerciseLibraryUI` | Màn hình thư viện bài tập |
-| 5 | `ExerciseUI` | Màn hình ghi nhận bài tập |
-| 6 | `LoginForm` | Màn hình đăng nhập |
-| 7 | `RegisterForm` | Màn hình đăng ký |
-| 8 | `ManageLogUI` | Màn hình quản lý log |
-| 9 | `NutritionUI` | Màn hình tra cứu sản phẩm dinh dưỡng |
-| 10 | `ProfileUI` | Màn hình trang cá nhân của người dùng |
-| 11 | `StatisticsUI` | Màn hình thống kê tổng quan |
+| 1 | `MainFrame` | Main window that manages navigation between panels |
+| 2 | `DashboardUI` | User home screen |
+| 3 | `AdminUI` | Admin screen |
+| 4 | `ExerciseLibraryUI` | Exercise library screen |
+| 5 | `ExerciseUI` | Workout logging screen |
+| 6 | `LoginForm` | Login screen |
+| 7 | `RegisterForm` | Registration screen |
+| 8 | `ManageLogUI` | Log management screen |
+| 9 | `NutritionUI` | Nutrition lookup screen |
+| 10 | `ProfileUI` | User profile screen |
+| 11 | `StatisticsUI` | Statistics overview screen |
 
-## Màn hình đăng nhập
+## Login Screen
 
-### Giao diện
+### Interface
 
-Màn hình đăng nhập cho phép người dùng nhập tài khoản, mật khẩu và chuyển sang màn hình đăng ký nếu chưa có tài khoản.
+The login screen allows users to enter their username and password. It also provides navigation to the registration screen for users who do not have an account.
 
-### Mô tả các đối tượng trên màn hình
+### UI Object Description
 
-| STT | Tên | Kiểu | Ràng buộc | Chức năng |
+| No. | Name | Type | Constraint | Purpose |
 |---|---|---|---|---|
-| 1 | `txtUsername` | TextField | NOT NULL | Nhập tên đăng nhập |
-| 2 | `txtPassword` | PasswordField | NOT NULL | Nhập mật khẩu |
-| 3 | `btnLogin` | Button | | Gửi yêu cầu đăng nhập |
-| 4 | `btnRegister` | Button/Link | | Chuyển sang màn hình đăng ký |
-| 5 | `messageDialog` | Dialog | | Hiển thị thông báo lỗi hoặc kết quả đăng nhập |
+| 1 | `txtUsername` | TextField | NOT NULL | Enter username |
+| 2 | `txtPassword` | PasswordField | NOT NULL | Enter password |
+| 3 | `btnLogin` | Button | | Submit login request |
+| 4 | `btnRegister` | Button/Link | | Navigate to the registration screen |
+| 5 | `messageDialog` | Dialog | | Display login result or validation errors |
 
-### Danh sách các biến cố và xử lý
+### Event List and Handling
 
-| STT | Biến cố | Xử lý |
+| No. | Event | Handling |
 |---|---|---|
-| 1 | `btnLogin_Click` | Đọc username/password, gọi `LoginManager.login(username, password)`, nếu hợp lệ thì chuyển vào màn hình tương ứng |
-| 2 | `txtPassword_Enter` | Gọi lại xử lý đăng nhập khi người dùng nhấn Enter trong ô mật khẩu |
-| 3 | `btnRegister_Click` | Gọi `MainFrame.showRegisterScreen()` để chuyển sang màn hình đăng ký |
-| 4 | `login_InvalidInput` | Nếu thiếu dữ liệu hoặc sai tài khoản, hiển thị thông báo lỗi bằng `JOptionPane` |
-| 5 | `login_Success` | Nếu tài khoản là User thì mở `DashboardUI`, nếu là Admin thì mở `AdminUI` |
+| 1 | `btnLogin_Click` | Read username/password, call `LoginManager.login(username, password)`, and open the matching screen if the account is valid |
+| 2 | `txtPassword_Enter` | Trigger the login flow when the user presses Enter in the password field |
+| 3 | `btnRegister_Click` | Call `MainFrame.showRegisterScreen()` |
+| 4 | `login_InvalidInput` | Show an error dialog if fields are empty or credentials are invalid |
+| 5 | `login_Success` | Open `DashboardUI` for a normal user or `AdminUI` for an admin |
 
-## Màn hình đăng ký
+## Registration Screen
 
-### Giao diện
+### Interface
 
-Màn hình đăng ký cho phép người dùng tạo tài khoản mới bằng cách nhập thông tin cá nhân, chỉ số cơ thể và mục tiêu tập luyện.
+The registration screen allows a new user to create an account by entering personal information, body metrics, and a workout goal.
 
-### Mô tả các đối tượng trên màn hình
+### UI Object Description
 
-| STT | Tên | Kiểu | Ràng buộc | Chức năng |
+| No. | Name | Type | Constraint | Purpose |
 |---|---|---|---|---|
-| 1 | `txtName` | TextField | NOT NULL | Nhập họ tên người dùng |
-| 2 | `txtUsername` | TextField | NOT NULL, UNIQUE | Nhập tên đăng nhập |
-| 3 | `txtPassword` | PasswordField | NOT NULL | Nhập mật khẩu |
-| 4 | `txtAge` | TextField | NOT NULL, Number | Nhập tuổi |
-| 5 | `genderGroup` | RadioButton Group | NOT NULL | Chọn giới tính |
-| 6 | `txtHeight` | TextField | NOT NULL, Number | Nhập chiều cao |
-| 7 | `txtWeight` | TextField | NOT NULL, Number | Nhập cân nặng |
-| 8 | `cbGoal` | ComboBox | NOT NULL | Chọn mục tiêu tập luyện |
-| 9 | `btnRegister` | Button | | Gửi thông tin đăng ký |
-| 10 | `btnBack/btnCancel` | Button | | Quay lại màn hình đăng nhập |
+| 1 | `txtName` | TextField | NOT NULL | Enter full name |
+| 2 | `txtUsername` | TextField | NOT NULL, UNIQUE | Enter username |
+| 3 | `txtPassword` | PasswordField | NOT NULL | Enter password |
+| 4 | `txtAge` | TextField | NOT NULL, Number | Enter age |
+| 5 | `genderGroup` | RadioButton Group | NOT NULL | Select gender |
+| 6 | `txtHeight` | TextField | NOT NULL, Number | Enter height |
+| 7 | `txtWeight` | TextField | NOT NULL, Number | Enter weight |
+| 8 | `cbGoal` | ComboBox | NOT NULL | Select workout goal |
+| 9 | `btnRegister` | Button | | Submit registration data |
+| 10 | `btnBack` / `btnCancel` | Button | | Return to the login screen |
 
-### Danh sách các biến cố và xử lý
+### Event List and Handling
 
-| STT | Biến cố | Xử lý |
+| No. | Event | Handling |
 |---|---|---|
-| 1 | `btnRegister_Click` | Đọc dữ liệu form, validate dữ liệu bắt buộc và kiểu số |
-| 2 | `register_ValidInput` | Tạo `User`, gọi `RegisterManager.register(newUser)` để lưu tài khoản |
-| 3 | `register_DuplicateUsername` | Nếu username đã tồn tại, hiển thị thông báo lỗi |
-| 4 | `register_InvalidNumber` | Nếu tuổi/chiều cao/cân nặng sai định dạng, hiển thị thông báo lỗi |
-| 5 | `register_Success` | Đăng ký thành công, chuyển về màn hình đăng nhập hoặc đăng nhập vào hệ thống |
-| 6 | `btnBack_Click` | Gọi `MainFrame.showLoginScreen()` |
+| 1 | `btnRegister_Click` | Read form data and validate required fields and numeric values |
+| 2 | `register_ValidInput` | Create `User` and call `RegisterManager.register(newUser)` |
+| 3 | `register_DuplicateUsername` | Show an error dialog if the username already exists |
+| 4 | `register_InvalidNumber` | Show an error dialog if age, height, or weight has an invalid format |
+| 5 | `register_Success` | Save the new account and move to the login flow |
+| 6 | `btnBack_Click` | Call `MainFrame.showLoginScreen()` |
 
-## Màn hình trang chủ
+## User Home Screen
 
-### Giao diện
+### Interface
 
-Màn hình trang chủ là khu vực điều hướng chính của người dùng sau khi đăng nhập, chứa các tab chức năng như thư viện bài tập, dinh dưỡng, nhật ký, thống kê và hồ sơ.
+The user home screen is the main navigation area after login. It contains access to the exercise library, nutrition lookup, log management, statistics, and profile screens.
 
-### Mô tả các đối tượng trên màn hình
+### UI Object Description
 
-| STT | Tên | Kiểu | Ràng buộc | Chức năng |
+| No. | Name | Type | Constraint | Purpose |
 |---|---|---|---|---|
-| 1 | `mainFrame` | MainFrame | NOT NULL | Quản lý chuyển đổi giữa các màn hình |
-| 2 | `cardPanel` | JPanel/CardLayout | NOT NULL | Chứa các panel chức năng |
-| 3 | `btnLibrary` | Button/Navigation | | Mở màn hình thư viện bài tập |
-| 4 | `btnNutrition` | Button/Navigation | | Mở màn hình tra cứu dinh dưỡng |
-| 5 | `btnLogs` | Button/Navigation | | Mở màn hình quản lý log |
-| 6 | `btnStats` | Button/Navigation | | Mở màn hình thống kê |
-| 7 | `btnProfile` | Button/Navigation | | Mở màn hình hồ sơ cá nhân |
-| 8 | `libraryUI` | Panel | | Hiển thị thư viện bài tập |
-| 9 | `exerciseUI` | Panel | | Hiển thị form ghi bài tập |
+| 1 | `mainFrame` | MainFrame | NOT NULL | Manage screen navigation |
+| 2 | `cardPanel` | JPanel/CardLayout | NOT NULL | Hold feature panels |
+| 3 | `btnLibrary` | Button/Navigation | | Open the exercise library |
+| 4 | `btnNutrition` | Button/Navigation | | Open nutrition lookup |
+| 5 | `btnLogs` | Button/Navigation | | Open log management |
+| 6 | `btnStats` | Button/Navigation | | Open statistics overview |
+| 7 | `btnProfile` | Button/Navigation | | Open the user profile |
+| 8 | `libraryUI` | Panel | | Display the exercise library |
+| 9 | `exerciseUI` | Panel | | Display the workout logging form |
 
-### Danh sách các biến cố và xử lý
+### Event List and Handling
 
-| STT | Biến cố | Xử lý |
+| No. | Event | Handling |
 |---|---|---|
-| 1 | `btnLibrary_Click` | Gọi `switchTo("LIBRARY", btnLibrary)` để hiển thị `ExerciseLibraryUI` |
-| 2 | `btnNutrition_Click` | Gọi `switchTo("NUTRITION", btnNutrition)` để hiển thị `NutritionUI` |
-| 3 | `btnLogs_Click` | Gọi `switchTo("LOGS", btnLogs)` để hiển thị `ManageLogUI` |
-| 4 | `btnStats_Click` | Gọi `switchTo("STATS", btnStats)` để hiển thị `StatisticsUI` |
-| 5 | `btnProfile_Click` | Gọi `switchTo("PROFILE", btnProfile)` để hiển thị `ProfileUI` |
-| 6 | `navigateToExerciseInput` | Nhận bài tập được chọn từ thư viện, gọi `ExerciseUI.setSelectedExercise(ex)` và chuyển sang màn hình ghi bài tập |
-| 7 | `showLibrary` | Chuyển về màn hình thư viện bài tập |
+| 1 | `btnLibrary_Click` | Call `switchTo("LIBRARY", btnLibrary)` to display `ExerciseLibraryUI` |
+| 2 | `btnNutrition_Click` | Call `switchTo("NUTRITION", btnNutrition)` to display `NutritionUI` |
+| 3 | `btnLogs_Click` | Call `switchTo("LOGS", btnLogs)` to display `ManageLogUI` |
+| 4 | `btnStats_Click` | Call `switchTo("STATS", btnStats)` to display `StatisticsUI` |
+| 5 | `btnProfile_Click` | Call `switchTo("PROFILE", btnProfile)` to display `ProfileUI` |
+| 6 | `navigateToExerciseInput` | Receive the selected exercise, call `ExerciseUI.setSelectedExercise(ex)`, and move to the workout logging screen |
+| 7 | `showLibrary` | Return to the exercise library screen |
 
-## Màn hình thư viện bài tập
+## Exercise Library Screen
 
-### Giao diện
+### Interface
 
-Màn hình thư viện bài tập hiển thị danh sách bài tập theo danh mục, cho phép người dùng chọn bài tập để ghi log. Với admin, màn hình còn hỗ trợ thêm, sửa, xóa bài tập.
+The exercise library screen displays exercises by category and lets users choose an exercise for logging. For admins, it also supports adding, updating, and deleting exercises.
 
-### Mô tả các đối tượng trên màn hình
+### UI Object Description
 
-| STT | Tên | Kiểu | Ràng buộc | Chức năng |
+| No. | Name | Type | Constraint | Purpose |
 |---|---|---|---|---|
-| 1 | `filterButtons` | ToggleButton/Chip | | Lọc bài tập theo danh mục |
-| 2 | `btnSuggest` | Button | | Bật/tắt danh sách bài tập đề xuất |
-| 3 | `cardsContainer` | Panel/List | ReadOnly | Hiển thị danh sách card bài tập |
-| 4 | `exerciseCard` | Card/Panel | | Hiển thị tên bài tập, nhóm cơ và icon |
-| 5 | `btnAddExercise` | Button | Admin only | Mở dialog thêm bài tập |
-| 6 | `btnEditExercise` | Button | Admin only | Mở dialog sửa bài tập |
-| 7 | `btnDeleteExercise` | Button | Admin only | Xóa bài tập |
-| 8 | `txtName` | TextField | NOT NULL | Nhập tên bài tập trong dialog |
-| 9 | `txtMuscle` | TextField | NULL | Nhập nhóm cơ mục tiêu |
-| 10 | `cbParentCategory` | ComboBox | NOT NULL | Chọn danh mục cha |
-| 11 | `cbSubCategory` | ComboBox | NOT NULL | Chọn danh mục con |
-| 12 | `cbTracking` | ComboBox | NOT NULL | Chọn hình thức theo dõi bài tập |
-| 13 | `btnSave` | Button | | Lưu thêm/sửa bài tập |
-| 14 | `btnCancel` | Button | | Đóng dialog thêm/sửa |
+| 1 | `filterButtons` | ToggleButton/Chip | | Filter exercises by category |
+| 2 | `btnSuggest` | Button | | Enable or disable suggested exercises |
+| 3 | `cardsContainer` | Panel/List | ReadOnly | Display exercise cards |
+| 4 | `exerciseCard` | Card/Panel | | Display exercise name, target muscle, and icon |
+| 5 | `btnAddExercise` | Button | Admin only | Open the add-exercise dialog |
+| 6 | `btnEditExercise` | Button | Admin only | Open the edit-exercise dialog |
+| 7 | `btnDeleteExercise` | Button | Admin only | Delete an exercise |
+| 8 | `txtName` | TextField | NOT NULL | Enter exercise name in the dialog |
+| 9 | `txtMuscle` | TextField | NULL | Enter target muscle |
+| 10 | `cbParentCategory` | ComboBox | NOT NULL | Select parent category |
+| 11 | `cbSubCategory` | ComboBox | NOT NULL | Select subcategory |
+| 12 | `cbTracking` | ComboBox | NOT NULL | Select tracking type |
+| 13 | `btnSave` | Button | | Save added or updated exercise |
+| 14 | `btnCancel` | Button | | Close the add/edit dialog |
 
-### Danh sách các biến cố và xử lý
+### Event List and Handling
 
-| STT | Biến cố | Xử lý |
+| No. | Event | Handling |
 |---|---|---|
-| 1 | `filterButton_Click` | Cập nhật `activeFilter`, render lại danh sách bài tập |
-| 2 | `btnSuggest_Click` | Gọi `ExerciseSuggestionService.suggest(user, library)` để lấy bài tập đề xuất |
-| 3 | `exerciseCard_Click` | Với user, chuyển sang màn hình ghi log bài tập |
-| 4 | `btnAddExercise_Click` | Với admin, mở dialog thêm bài tập |
-| 5 | `cbParentCategory_Change` | Cập nhật danh sách danh mục con tương ứng |
-| 6 | `cbSubCategory_Change` | Cập nhật danh sách tracking type hợp lệ |
-| 7 | `btnSaveAdd_Click` | Validate dữ liệu, gọi `AdminController.addExercise()` |
-| 8 | `btnEditExercise_Click` | Mở dialog sửa bài tập đã chọn |
-| 9 | `btnSaveEdit_Click` | Validate dữ liệu, gọi `AdminController.updateExercise()` |
-| 10 | `btnDeleteExercise_Click` | Confirm, gọi `AdminController.deleteExercise(exerciseName)` |
-| 11 | `library_Update` | Sau khi thêm/sửa/xóa, `ExerciseLibrary.notifyObservers()` làm mới giao diện |
+| 1 | `filterButton_Click` | Update `activeFilter` and re-render the exercise list |
+| 2 | `btnSuggest_Click` | Call `ExerciseSuggestionService.suggest(user, library)` to get suggested exercises |
+| 3 | `exerciseCard_Click` | For normal users, open the workout logging screen for the selected exercise |
+| 4 | `btnAddExercise_Click` | For admins, open the add-exercise dialog |
+| 5 | `cbParentCategory_Change` | Refresh the matching subcategory list |
+| 6 | `cbSubCategory_Change` | Refresh the valid tracking type list |
+| 7 | `btnSaveAdd_Click` | Validate input and call `AdminController.addExercise()` |
+| 8 | `btnEditExercise_Click` | Open the edit dialog for the selected exercise |
+| 9 | `btnSaveEdit_Click` | Validate input and call `AdminController.updateExercise()` |
+| 10 | `btnDeleteExercise_Click` | Ask for confirmation and call `AdminController.deleteExercise(exerciseName)` |
+| 11 | `library_Update` | Refresh the UI after `ExerciseLibrary.notifyObservers()` |
 
-## Màn hình của Admin
+## Admin Screen
 
-### Giao diện
+### Interface
 
-Màn hình admin cho phép quản trị viên chuyển giữa khu vực quản lý thư viện bài tập và khu vực xem thông tin người dùng.
+The admin screen lets administrators switch between exercise library management and user detail management.
 
-### Mô tả các đối tượng trên màn hình
+### UI Object Description
 
-| STT | Tên | Kiểu | Ràng buộc | Chức năng |
+| No. | Name | Type | Constraint | Purpose |
 |---|---|---|---|---|
-| 1 | `btnLibrary` | Button/Navigation | Admin only | Mở màn hình quản lý thư viện |
-| 2 | `btnUsers` | Button/Navigation | Admin only | Mở danh sách người dùng |
-| 3 | `btnLogout` | Button | Admin only | Đăng xuất tài khoản admin |
-| 4 | `cardPanel` | JPanel/CardLayout | NOT NULL | Chứa các màn hình con của admin |
-| 5 | `libraryPanel` | Panel | | Hiển thị thư viện bài tập cho admin quản lý |
-| 6 | `userListPanel` | Panel/List | ReadOnly | Hiển thị danh sách user |
-| 7 | `userCard` | Card/Panel | | Hiển thị thông tin tóm tắt của user |
-| 8 | `userDetailPanel` | Panel | ReadOnly | Hiển thị chi tiết user được chọn |
-| 9 | `btnBack` | Button | | Quay lại danh sách người dùng |
+| 1 | `btnLibrary` | Button/Navigation | Admin only | Open exercise library management |
+| 2 | `btnUsers` | Button/Navigation | Admin only | Open the user list |
+| 3 | `btnLogout` | Button | Admin only | Sign out from the admin account |
+| 4 | `cardPanel` | JPanel/CardLayout | NOT NULL | Hold admin sub-screens |
+| 5 | `libraryPanel` | Panel | | Display the exercise library for admin management |
+| 6 | `userListPanel` | Panel/List | ReadOnly | Display the user list |
+| 7 | `userCard` | Card/Panel | | Display a user summary |
+| 8 | `userDetailPanel` | Panel | ReadOnly | Display selected user details |
+| 9 | `btnBack` | Button | | Return to the user list |
 
-### Danh sách các biến cố và xử lý
+### Event List and Handling
 
-| STT | Biến cố | Xử lý |
+| No. | Event | Handling |
 |---|---|---|
-| 1 | `btnLibrary_Click` | Gọi `cardLayout.show(cardPanel, "LIBRARY")` để hiển thị thư viện bài tập |
-| 2 | `btnUsers_Click` | Gọi `refreshUserListPanel()` và hiển thị danh sách người dùng |
-| 3 | `userCard_Click` | Gọi `showUserDetails(user)` để mở màn hình chi tiết user |
-| 4 | `btnBack_Click` | Quay lại màn hình danh sách người dùng |
-| 5 | `btnLogout_Click` | Confirm đăng xuất, sau đó gọi `MainFrame.showLoginScreen()` |
-| 6 | `refreshUserListPanel` | Gọi `AdminController.viewUserDetails()` để lấy danh sách user |
+| 1 | `btnLibrary_Click` | Call `cardLayout.show(cardPanel, "LIBRARY")` |
+| 2 | `btnUsers_Click` | Call `refreshUserListPanel()` and display the user list |
+| 3 | `userCard_Click` | Call `showUserDetails(user)` |
+| 4 | `btnBack_Click` | Return to the user list |
+| 5 | `btnLogout_Click` | Ask for confirmation, then call `MainFrame.showLoginScreen()` |
+| 6 | `refreshUserListPanel` | Call `AdminController.viewUserDetails()` |
 
-## Màn hình ghi nhận bài tập
+## Workout Logging Screen
 
-### Giao diện
+### Interface
 
-Màn hình ghi nhận bài tập cho phép người dùng nhập thông tin set tập theo loại tracking của bài tập và có thể bật gợi ý tự động cho set tiếp theo.
+The workout logging screen lets users enter set data based on the selected exercise tracking type. It can also show automatic next-set recommendations.
 
-### Mô tả các đối tượng trên màn hình
+### UI Object Description
 
-| STT | Tên | Kiểu | Ràng buộc | Chức năng |
+| No. | Name | Type | Constraint | Purpose |
 |---|---|---|---|---|
-| 1 | `exerciseCard` | Card/Panel | NOT NULL | Hiển thị bài tập được chọn từ thư viện |
-| 2 | `lblExName` | Label | ReadOnly | Hiển thị tên bài tập |
-| 3 | `lblExTarget` | Label | ReadOnly | Hiển thị nhóm cơ và thể loại bài tập |
-| 4 | `txtWeight` | TextField | Number, tùy tracking type | Nhập mức tạ |
-| 5 | `txtReps` | TextField | Number, tùy tracking type | Nhập số reps |
-| 6 | `txtDistance` | TextField | Number, tùy tracking type | Nhập quãng đường |
-| 7 | `txtTime` | TextField | Number, tùy tracking type | Nhập thời gian |
-| 8 | `lblToggleHint` | Link/Label | | Bật/tắt gợi ý tự động cho set tiếp theo |
-| 9 | `lblHintMsg` | Label | | Hiển thị thông điệp gợi ý |
-| 10 | `btnSave` | Button | | Lưu log tập luyện hoặc lưu set tiếp theo |
-| 11 | `btnBack` | Button | | Quay lại thư viện bài tập |
+| 1 | `exerciseCard` | Card/Panel | NOT NULL | Display the selected exercise |
+| 2 | `lblExName` | Label | ReadOnly | Display exercise name |
+| 3 | `lblExTarget` | Label | ReadOnly | Display target muscle and category |
+| 4 | `txtWeight` | TextField | Number, depends on tracking type | Enter weight |
+| 5 | `txtReps` | TextField | Number, depends on tracking type | Enter repetitions |
+| 6 | `txtDistance` | TextField | Number, depends on tracking type | Enter distance |
+| 7 | `txtTime` | TextField | Number, depends on tracking type | Enter time |
+| 8 | `lblToggleHint` | Link/Label | | Enable or disable next-set suggestion |
+| 9 | `lblHintMsg` | Label | | Display recommendation message |
+| 10 | `btnSave` | Button | | Save workout log |
+| 11 | `btnBack` | Button | | Return to the exercise library |
 
-### Danh sách các biến cố và xử lý
+### Event List and Handling
 
-| STT | Biến cố | Xử lý |
+| No. | Event | Handling |
 |---|---|---|
-| 1 | `setSelectedExercise` | Cập nhật bài tập hiện tại và hiển thị các ô nhập phù hợp với `TrackingType` |
-| 2 | `lblToggleHint_Click` | Đổi trạng thái bật/tắt gợi ý, gọi `updateHints()` |
-| 3 | `updateHints` | Lấy log gần nhất và lịch sử log, gọi `WorkoutHandling.calculateNextSet()` |
-| 4 | `btnSave_Click` | Validate dữ liệu, tạo `WorkoutLog` bằng Builder và gọi `WorkoutLogController.addWorkoutLog()` |
-| 5 | `saveWorkoutLog_Success` | Lưu log thành công, xóa nội dung ô nhập và cập nhật lại gợi ý |
-| 6 | `saveWorkoutLog_InvalidInput` | Nếu thiếu dữ liệu hoặc nhập sai kiểu số, hiển thị thông báo lỗi |
-| 7 | `btnBack_Click` | Gọi `DashboardUI.showLibrary()` để quay lại thư viện |
-| 8 | `workoutLog_NotifyObservers` | Sau khi thêm log thành công, `WorkoutLogController.notifyObservers()` cập nhật các màn hình liên quan |
+| 1 | `setSelectedExercise` | Set the current exercise and display inputs that match `TrackingType` |
+| 2 | `lblToggleHint_Click` | Toggle suggestion mode and call `updateHints()` |
+| 3 | `updateHints` | Read recent logs and call `WorkoutHandling.calculateNextSet()` |
+| 4 | `btnSave_Click` | Validate input, create `WorkoutLog` with Builder, and call `WorkoutLogController.addWorkoutLog()` |
+| 5 | `saveWorkoutLog_Success` | Save the log, clear input fields, and refresh the next-set suggestion |
+| 6 | `saveWorkoutLog_InvalidInput` | Show an error dialog if required values are missing or invalid |
+| 7 | `btnBack_Click` | Call `DashboardUI.showLibrary()` |
+| 8 | `workoutLog_NotifyObservers` | Refresh related screens through `WorkoutLogController.notifyObservers()` |
 
-## Màn hình quản lý log
+## Log Management Screen
 
-### Giao diện
+### Interface
 
-Màn hình quản lý log cho phép người dùng xem và xóa các nhật ký tập luyện hoặc nhật ký dinh dưỡng đã lưu.
+The log management screen lets users view and delete saved workout logs or nutrition logs.
 
-### Mô tả các đối tượng trên màn hình
+### UI Object Description
 
-| STT | Tên | Kiểu | Ràng buộc | Chức năng |
+| No. | Name | Type | Constraint | Purpose |
 |---|---|---|---|---|
-| 1 | `tabWorkout` | Button/Tab | | Chuyển sang danh sách workout log |
-| 2 | `tabNutrition` | Button/Tab | | Chuyển sang danh sách nutrition log |
-| 3 | `workoutLogPanel` | Panel/List | ReadOnly | Hiển thị danh sách workout log của user |
-| 4 | `nutritionLogPanel` | Panel/List | ReadOnly | Hiển thị danh sách nutrition log của user |
-| 5 | `workoutLogCard` | Card/Panel | ReadOnly | Hiển thị thông tin từng workout log |
-| 6 | `nutritionLogCard` | Card/Panel | ReadOnly | Hiển thị thông tin từng nutrition log |
-| 7 | `btnDeleteWorkoutLog` | Button | Cần có log | Xóa workout log |
-| 8 | `btnDeleteNutritionLog` | Button | Cần có log | Xóa nutrition log |
-| 9 | `confirmDialog` | Dialog | | Xác nhận trước khi xóa log |
+| 1 | `tabWorkout` | Button/Tab | | Switch to workout logs |
+| 2 | `tabNutrition` | Button/Tab | | Switch to nutrition logs |
+| 3 | `workoutLogPanel` | Panel/List | ReadOnly | Display workout logs for the current user |
+| 4 | `nutritionLogPanel` | Panel/List | ReadOnly | Display nutrition logs for the current user |
+| 5 | `workoutLogCard` | Card/Panel | ReadOnly | Display one workout log |
+| 6 | `nutritionLogCard` | Card/Panel | ReadOnly | Display one nutrition log |
+| 7 | `btnDeleteWorkoutLog` | Button | Requires selected log | Delete workout log |
+| 8 | `btnDeleteNutritionLog` | Button | Requires selected log | Delete nutrition log |
+| 9 | `confirmDialog` | Dialog | | Confirm deletion |
 
-### Danh sách các biến cố và xử lý
+### Event List and Handling
 
-| STT | Biến cố | Xử lý |
+| No. | Event | Handling |
 |---|---|---|
-| 1 | `tabWorkout_Click` | Hiển thị panel workout log và đổi style tab |
-| 2 | `tabNutrition_Click` | Hiển thị panel nutrition log và đổi style tab |
-| 3 | `loadWorkoutData` | Lấy workout log từ `WorkoutLogController.getAllLogs()`, lọc theo user hiện tại |
-| 4 | `loadNutritionData` | Lấy nutrition log từ `NutritionLogController.getAllLogs()`, lọc theo user hiện tại |
-| 5 | `btnDeleteWorkoutLog_Click` | Confirm, sau đó gọi `WorkoutLogController.removeWorkoutLog(logID)` |
-| 6 | `btnDeleteNutritionLog_Click` | Confirm, sau đó gọi `NutritionLogController.removeNutritionLog(logID)` |
-| 7 | `deleteLog_Success` | Xóa log thành công, lưu JSON và gọi `notifyObservers()` |
-| 8 | `observer_Update` | Khi log thay đổi, `ManageLogUI.update()` tự load lại danh sách |
+| 1 | `tabWorkout_Click` | Show the workout log panel and update tab style |
+| 2 | `tabNutrition_Click` | Show the nutrition log panel and update tab style |
+| 3 | `loadWorkoutData` | Load logs from `WorkoutLogController.getAllLogs()` and filter by current user |
+| 4 | `loadNutritionData` | Load logs from `NutritionLogController.getAllLogs()` and filter by current user |
+| 5 | `btnDeleteWorkoutLog_Click` | Ask for confirmation and call `WorkoutLogController.removeWorkoutLog(logID)` |
+| 6 | `btnDeleteNutritionLog_Click` | Ask for confirmation and call `NutritionLogController.removeNutritionLog(logID)` |
+| 7 | `deleteLog_Success` | Save data and call `notifyObservers()` after deletion |
+| 8 | `observer_Update` | Reload the list when `ManageLogUI.update()` is called |
 
-## Màn hình thống kê tổng quan
+## Statistics Overview Screen
 
-### Giao diện
+### Interface
 
-Màn hình thống kê tổng quan hiển thị dữ liệu tập luyện, dinh dưỡng, log gần đây và cho phép người dùng cập nhật mục tiêu tập luyện.
+The statistics overview screen displays workout data, nutrition data, recent logs, and the current workout goal.
 
-### Mô tả các đối tượng trên màn hình
+### UI Object Description
 
-| STT | Tên | Kiểu | Ràng buộc | Chức năng |
+| No. | Name | Type | Constraint | Purpose |
 |---|---|---|---|---|
-| 1 | `lblTotalVolume` | Label/StatBox | ReadOnly | Hiển thị tổng volume tập luyện |
-| 2 | `lblTotalCalo` | Label/StatBox | ReadOnly | Hiển thị tổng năng lượng nạp |
-| 3 | `workoutChart` | Chart/Panel | ReadOnly | Hiển thị thống kê workout |
-| 4 | `nutritionChart` | Chart/Panel | ReadOnly | Hiển thị thống kê nutrition |
-| 5 | `tblRecentWorkout` | Table | ReadOnly | Hiển thị workout log gần đây |
-| 6 | `tblRecentNutrition` | Table | ReadOnly | Hiển thị nutrition log gần đây |
-| 7 | `cbGoal` | ComboBox | NOT NULL | Chọn mục tiêu tập luyện hiện tại |
-| 8 | `btnUpdateGoal` | Button | | Lưu thay đổi mục tiêu |
-| 9 | `btnRefresh` | Button | | Làm mới dữ liệu thống kê |
+| 1 | `lblTotalVolume` | Label/StatBox | ReadOnly | Display total workout volume |
+| 2 | `lblTotalCalo` | Label/StatBox | ReadOnly | Display total consumed calories |
+| 3 | `workoutChart` | Chart/Panel | ReadOnly | Display workout statistics |
+| 4 | `nutritionChart` | Chart/Panel | ReadOnly | Display nutrition statistics |
+| 5 | `tblRecentWorkout` | Table | ReadOnly | Display recent workout logs |
+| 6 | `tblRecentNutrition` | Table | ReadOnly | Display recent nutrition logs |
+| 7 | `cbGoal` | ComboBox | NOT NULL | Select current workout goal |
+| 8 | `btnUpdateGoal` | Button | | Save goal changes |
+| 9 | `btnRefresh` | Button | | Refresh statistics data |
 
-### Danh sách các biến cố và xử lý
+### Event List and Handling
 
-| STT | Biến cố | Xử lý |
+| No. | Event | Handling |
 |---|---|---|
-| 1 | `refreshData` | Gọi `StatisticsPresenter` để lấy tổng volume, tổng calo và log gần đây |
-| 2 | `btnRefresh_Click` | Tải lại toàn bộ dữ liệu thống kê |
-| 3 | `btnUpdateGoal_Click` | Cập nhật goal của user, gọi `StatisticsPresenter.updateGoal(user)` |
-| 4 | `updateGoal_Success` | Gọi `WorkoutHandling.setGoal(user)` để cập nhật Strategy gợi ý set |
-| 5 | `observer_Update` | Khi workout/nutrition log thay đổi, `StatisticsUI.update()` tự gọi `refreshData()` |
-| 6 | `noData_State` | Nếu chưa có log, hiển thị giá trị mặc định hoặc bảng rỗng |
+| 1 | `refreshData` | Call `StatisticsPresenter` to get total volume, total calories, and recent logs |
+| 2 | `btnRefresh_Click` | Reload all statistics data |
+| 3 | `btnUpdateGoal_Click` | Update the user goal through `StatisticsPresenter.updateGoal(user)` |
+| 4 | `updateGoal_Success` | Call `WorkoutHandling.setGoal(user)` to update the next-set strategy |
+| 5 | `observer_Update` | Refresh statistics when workout or nutrition logs change |
+| 6 | `noData_State` | Display default values or empty tables when no logs are available |
 
-## Màn hình tra cứu dinh dưỡng
+## Nutrition Lookup Screen
 
-### Giao diện
+### Interface
 
-Màn hình tra cứu dinh dưỡng cho phép người dùng tìm sản phẩm, xem thông tin kcal/protein/carb/fat và thêm kết quả vào nhật ký dinh dưỡng.
+The nutrition lookup screen lets users search for food products, review kcal/protein/carb/fat values, and add the selected result to the nutrition log.
 
-### Mô tả các đối tượng trên màn hình
+### UI Object Description
 
-| STT | Tên | Kiểu | Ràng buộc | Chức năng |
+| No. | Name | Type | Constraint | Purpose |
 |---|---|---|---|---|
-| 1 | `txtSearchFood` | TextField | NOT NULL | Nhập tên sản phẩm/món ăn cần tra cứu |
-| 2 | `btnSearch` | Button | | Gửi yêu cầu tìm kiếm dinh dưỡng |
-| 3 | `resultTable` | Table | ReadOnly | Hiển thị danh sách kết quả từ API |
-| 4 | `tableModel` | TableModel | | Lưu dữ liệu hiển thị trong bảng kết quả |
-| 5 | `btnAddFood` | Button | Cần chọn 1 dòng | Thêm sản phẩm đã chọn vào nhật ký dinh dưỡng |
-| 6 | `loadingState` | Label/Dialog | | Thông báo trạng thái đang tìm hoặc không tìm thấy dữ liệu |
+| 1 | `txtSearchFood` | TextField | NOT NULL | Enter food or product name |
+| 2 | `btnSearch` | Button | | Submit nutrition lookup |
+| 3 | `resultTable` | Table | ReadOnly | Display API search results |
+| 4 | `tableModel` | TableModel | | Store result table data |
+| 5 | `btnAddFood` | Button | Requires selected row | Add selected product to the nutrition log |
+| 6 | `loadingState` | Label/Dialog | | Display searching or empty-result state |
 
-### Danh sách các biến cố và xử lý
+### Event List and Handling
 
-| STT | Biến cố | Xử lý |
+| No. | Event | Handling |
 |---|---|---|
-| 1 | `btnSearch_Click` | Gọi `doSearch()` để bắt đầu tra cứu |
-| 2 | `txtSearchFood_Enter` | Tìm kiếm nhanh khi người dùng nhấn Enter |
-| 3 | `doSearch` | Gọi `NutritionLogController.lookupNutrition(keyword)` |
-| 4 | `lookupNutrition` | Gọi `INutrition.getNutritionInfo()` thông qua `OpenFoodFactsAdapter` |
-| 5 | `apiSearch_Done` | Đổ dữ liệu trả về vào `resultTable` hoặc hiển thị thông báo không tìm thấy |
-| 6 | `btnAddFood_Click` | Lấy dòng đang chọn, tạo `NutritionLog` bằng Builder và gọi `addNutritionLog()` |
-| 7 | `addNutritionLog_Success` | Lưu nutrition log và cập nhật các màn hình observer liên quan |
-| 8 | `addNutritionLog_NoSelection` | Nếu chưa chọn sản phẩm, hiển thị thông báo yêu cầu chọn dòng |
+| 1 | `btnSearch_Click` | Call `doSearch()` |
+| 2 | `txtSearchFood_Enter` | Start lookup when the user presses Enter |
+| 3 | `doSearch` | Call `NutritionLogController.lookupNutrition(keyword)` |
+| 4 | `lookupNutrition` | Call `INutrition.getNutritionInfo()` through `OpenFoodFactsAdapter` |
+| 5 | `apiSearch_Done` | Fill `resultTable` with API results or show an empty-result message |
+| 6 | `btnAddFood_Click` | Read selected row, create `NutritionLog` with Builder, and call `addNutritionLog()` |
+| 7 | `addNutritionLog_Success` | Save the nutrition log and refresh observer screens |
+| 8 | `addNutritionLog_NoSelection` | Show a message asking the user to select a row |
 
-## Màn hình trang cá nhân
+## User Profile Screen
 
-### Giao diện
+### Interface
 
-Màn hình trang cá nhân hiển thị thông tin cơ bản của người dùng, chỉ số cơ thể, mục tiêu tập luyện và nút đăng xuất.
+The user profile screen displays basic user information, body metrics, current workout goal, and the sign-out action.
 
-### Mô tả các đối tượng trên màn hình
+### UI Object Description
 
-| STT | Tên | Kiểu | Ràng buộc | Chức năng |
+| No. | Name | Type | Constraint | Purpose |
 |---|---|---|---|---|
-| 1 | `lblAvatar` | Label/Icon | ReadOnly | Hiển thị ký tự đại diện của người dùng |
-| 2 | `lblName` | Label | ReadOnly | Hiển thị họ tên người dùng |
-| 3 | `lblSub` | Label | ReadOnly | Hiển thị username và mục tiêu |
-| 4 | `profileStatCards` | Card/Panel | ReadOnly | Hiển thị tuổi, chiều cao, cân nặng, BMI |
-| 5 | `infoRows` | Label/Row | ReadOnly | Hiển thị thông tin chi tiết |
-| 6 | `btnLogout` | Button | | Đăng xuất khỏi hệ thống |
-| 7 | `confirmDialog` | Dialog | | Xác nhận trước khi đăng xuất |
+| 1 | `lblAvatar` | Label/Icon | ReadOnly | Display user initials or avatar text |
+| 2 | `lblName` | Label | ReadOnly | Display full name |
+| 3 | `lblSub` | Label | ReadOnly | Display username and goal |
+| 4 | `profileStatCards` | Card/Panel | ReadOnly | Display age, height, weight, and BMI |
+| 5 | `infoRows` | Label/Row | ReadOnly | Display detailed profile fields |
+| 6 | `btnLogout` | Button | | Sign out |
+| 7 | `confirmDialog` | Dialog | | Confirm sign-out |
 
-### Danh sách các biến cố và xử lý
+### Event List and Handling
 
-| STT | Biến cố | Xử lý |
+| No. | Event | Handling |
 |---|---|---|
-| 1 | `btnLogout_Click` | Hiển thị hộp thoại xác nhận đăng xuất |
-| 2 | `logout_Confirm` | Gọi `MainFrame.showLoginScreen()` để quay về màn hình đăng nhập |
-| 3 | `btnLogout_MouseEnter` | Đổi màu nút đăng xuất khi hover |
-| 4 | `btnLogout_MouseExit` | Khôi phục màu nút đăng xuất khi rời chuột |
-| 5 | `profile_Load` | Lấy thông tin từ `User` hiện tại để hiển thị lên các label/card |
+| 1 | `btnLogout_Click` | Show sign-out confirmation dialog |
+| 2 | `logout_Confirm` | Call `MainFrame.showLoginScreen()` |
+| 3 | `btnLogout_MouseEnter` | Change logout button color on hover |
+| 4 | `btnLogout_MouseExit` | Restore logout button color after hover |
+| 5 | `profile_Load` | Read current `User` data and display it in labels/cards |
