@@ -10,5 +10,17 @@
     "protein": 0.0,
     "fat": 0.0,
     "carb": 10.6
+  },
+  {
+    "userID": 1,
+    "logID": 54978,
+    "productID": 50354,
+    "productName": "Hawai Tropical",
+    "addTime": "2026-06-07T12:44:14.978782",
+    "quantity": 1,
+    "energy": 41.0,
+    "protein": 0.0,
+    "fat": 0.0,
+    "carb": 10.0
   }
 ]
